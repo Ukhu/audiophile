@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Category from "../components/Category";
 import ProductBanners from "../components/ProductBanners";
+import BrandSummary from "../components/BrandSummary";
 
 const CategoryGroup = styled.section`
   display: flex;
@@ -24,6 +25,7 @@ const Landing = () => {
         <Category name="Earphones" />
       </CategoryGroup>
       <ProductBanners />
+      <BrandSummary />
     </div>
   );
 };
