@@ -33,6 +33,7 @@ const MainText = styled.h1`
   font: ${({ theme }) => theme.typography.h1};
   color: ${({ theme }) => theme.colors.neutral.white};
   font-weight: 700;
+  text-transform: uppercase;
   letter-spacing: 2px;
   margin: 1.5rem 0;
 `;

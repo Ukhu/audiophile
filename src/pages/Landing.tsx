@@ -6,6 +6,7 @@ import Hero from "../components/Hero";
 import Category from "../components/Category";
 import ProductBanners from "../components/ProductBanners";
 import BrandSummary from "../components/BrandSummary";
+import Footer from "../components/Footer";
 
 const CategoryGroup = styled.section`
   display: flex;
@@ -26,6 +27,7 @@ const Landing = () => {
       </CategoryGroup>
       <ProductBanners />
       <BrandSummary />
+      <Footer />
     </div>
   );
 };
