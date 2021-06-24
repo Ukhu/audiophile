@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 import Button from "./Button";
 
-import HeadphoneImg from "../assets/img/headphone.png";
-import SpeakerImg from "../assets/img/speaker.png";
-import EarphoneImg from "../assets/img/earphone.png";
+import HeadphoneImg from "../assets/img/image-headphones.png";
+import SpeakerImg from "../assets/img/image-speakers.png";
+import EarphoneImg from "../assets/img/image-earphones.png";
 import OvalBlur from "../assets/svg/oval-blur.svg";
 
 const StyledCategory = styled.div`

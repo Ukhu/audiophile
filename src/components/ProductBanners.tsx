@@ -13,7 +13,7 @@ const StyledBanners = styled.section`
   margin: 0 10.3125rem;
   margin-bottom: 12.5rem;
   max-width: 69.375rem;
-  grid-template-columns: repeat(2, minmax(50%, 33.75rem));
+  grid-template-columns: repeat(2, minmax(45%, 33.75rem));
   grid-template-rows: 35rem repeat(2, 20rem);
   grid-template-areas: ${css`
     "speaker-1 speaker-1"
