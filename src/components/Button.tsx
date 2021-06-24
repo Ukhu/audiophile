@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const StyledButton = styled.button<{ variant: string }>`
+const StyledButton = styled.button<{ variant: string; color?: string }>`
   width: 10rem;
   height: 3rem;
   font: ${({ theme }) => theme.typography.subTitle};
@@ -11,21 +11,21 @@ const StyledButton = styled.button<{ variant: string }>`
   text-transform: uppercase;
   cursor: pointer;
 
-  ${({ variant, theme }) =>
+  ${({ variant, color, theme }) =>
     variant === "filled" &&
     css`
-      background-color: ${theme.colors.brand.peru};
+      background-color: ${color ? color : theme.colors.brand.peru};
       color: ${theme.colors.neutral.white};
 
       &:hover {
-        background-color: ${theme.colors.neutral.tangelo};
+        background-color: ${color ? "#4C4C4C" : theme.colors.neutral.tangelo};
       }
     `}
 
   ${({ variant, theme }) =>
     variant === "outline" &&
     css`
-      background-color: ${theme.colors.neutral.white};
+      background-color: transparent;
       border: 1px solid ${theme.colors.neutral.black};
       color: ${theme.colors.neutral.black};
 
@@ -51,10 +51,15 @@ const StyledButton = styled.button<{ variant: string }>`
 interface IButtonProps {
   text: string;
   variant: "filled" | "outline" | "ghost";
+  color?: string;
 }
 
-const Button = ({ text, variant }: IButtonProps) => {
-  return <StyledButton variant={variant}>{text}</StyledButton>;
+const Button = ({ text, variant, color }: IButtonProps) => {
+  return (
+    <StyledButton variant={variant} color={color}>
+      {text}
+    </StyledButton>
+  );
 };
 
 export default Button;
