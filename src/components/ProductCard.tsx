@@ -51,7 +51,6 @@ const NewProductIndicator = styled.div`
   color: ${({ theme }) => theme.colors.brand.peru};
   letter-spacing: 10px;
   text-transform: uppercase;
-  font-weight: bold;
   margin-bottom: 1rem;
 `;
 

@@ -4,10 +4,11 @@ import { IoCartOutline } from "react-icons/io5";
 
 import AudioPhileLogo from "../assets/svg/audiophile-logo.svg";
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<{ variant: string }>`
   display: flex;
   align-items: center;
-  background-color: transparent;
+  background-color: ${({ variant, theme }) =>
+    variant === "filled" ? theme.colors.neutral.black : "transparent"};
   height: 6rem;
 `;
 
@@ -55,9 +56,13 @@ const Icon = styled.div`
   }
 `;
 
-const Header = () => {
+interface IHeaderProps {
+  variant?: "filled" | "transparent";
+}
+
+const Header = ({ variant = "transparent" }: IHeaderProps) => {
   return (
-    <StyledHeader>
+    <StyledHeader variant={variant}>
       <Container>
         <img src={AudioPhileLogo} alt="Brand" />
 
