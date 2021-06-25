@@ -40,10 +40,56 @@ const ProductDescription = styled.p`
   opacity: 0.5;
 `;
 
+const ProductButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 18.5rem;
+`;
+
 const ProductImage = styled.img`
   width: 33.75rem;
   border-radius: 8px;
   height: 35rem;
+`;
+
+const ProductPrice = styled.p`
+  font: ${({ theme }) => theme.typography.h6};
+  letter-spacing: 1.3px;
+  font-weight: 700;
+  margin-bottom: 2.9375rem;
+`;
+
+const ProductQty = styled.div`
+  background-color: ${({ theme }) => theme.colors.brand.white};
+  display: flex;
+  align-items: center;
+  width: 7.5rem;
+  height: 3rem;
+`;
+
+const ProductControl = styled.button`
+  font: ${({ theme }) => theme.typography.subTitle};
+  letter-spacing: 1px;
+  font-weight: bold;
+  width: 2.5rem;
+  opacity: 0.25;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.brand.peru};
+    opacity: 1;
+  }
+`;
+
+const ProductInput = styled.input`
+  width: 2.5rem;
+  height: 3rem;
+  text-align: center;
+  background: transparent;
+  border: none;
 `;
 
 const NewProductIndicator = styled.div`
@@ -59,6 +105,7 @@ interface IProduct {
   descripton: string;
   new: boolean;
   imageUrl: string;
+  price?: number;
 }
 
 interface IProductCardProps {
@@ -66,7 +113,7 @@ interface IProductCardProps {
 }
 
 const ProductCard = ({ product }: IProductCardProps) => {
-  const { name, descripton, imageUrl } = product;
+  const { name, descripton, imageUrl, price } = product;
   return (
     <StyledProductCard>
       <ProductImage src={imageUrl} alt="Product" />
@@ -75,7 +122,17 @@ const ProductCard = ({ product }: IProductCardProps) => {
         {product.new && <NewProductIndicator>New Product</NewProductIndicator>}
         <ProductName>{name}</ProductName>
         <ProductDescription>{descripton}</ProductDescription>
-        <Button text="See Product" variant="filled" />
+        {price && <ProductPrice>${price}</ProductPrice>}
+        <ProductButtons>
+          {price && (
+            <ProductQty>
+              <ProductControl>-</ProductControl>
+              <ProductInput type="text" value={1} />
+              <ProductControl>+</ProductControl>
+            </ProductQty>
+          )}
+          <Button text="See Product" variant="filled" />
+        </ProductButtons>
       </ProductCardContent>
     </StyledProductCard>
   );

@@ -5,7 +5,7 @@ import MarkOneImg from "../assets/img/image-xx99-mark-one-headphones.jpg";
 import XXFiveNineImg from "../assets/img/image-xx59-headphones.jpg";
 import ZXNineImg from "../assets/img/image-zx9-speaker.jpg";
 
-import { MOCK_PRODUCTS } from "../utils/mockData";
+import { MOCK_SINGLE_PRODUCT } from "../utils/mockData";
 
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
@@ -56,7 +56,7 @@ const ProductDetail = () => {
     <div>
       <Header variant="filled" />
       <BackBtn />
-      <ProductCard product={MOCK_PRODUCTS[0]} />
+      <ProductCard product={MOCK_SINGLE_PRODUCT} />
       <ProductInfo />
       <ProductGallery />
       <SimilarProductsGroup>
