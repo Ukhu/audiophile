@@ -26,6 +26,7 @@ const StyledBackBtn = styled.button`
   margin-bottom: 3.5rem;
   border: none;
   background: transparent;
+  cursor: pointer;
 `;
 
 const SimilarProductsGroup = styled.section`
