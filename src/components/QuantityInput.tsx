@@ -1,12 +1,19 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const ProductQty = styled.div`
+const ProductQty = styled.div<{ small?: boolean }>`
   background-color: ${({ theme }) => theme.colors.brand.white};
   display: flex;
   align-items: center;
   width: 7.5rem;
   height: 3rem;
+
+  ${({ small }) =>
+    small &&
+    css`
+      width: 6rem;
+      height: 2rem;
+    `};
 `;
 
 const ProductControl = styled.button`
@@ -34,9 +41,13 @@ const ProductInput = styled.input`
   border: none;
 `;
 
-const QuantityInput = () => {
+interface IQuantityInput {
+  small?: boolean;
+}
+
+const QuantityInput = ({ small }: IQuantityInput) => {
   return (
-    <ProductQty>
+    <ProductQty small={small}>
       <ProductControl>-</ProductControl>
       <ProductInput type="text" value={1} />
       <ProductControl>+</ProductControl>

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 import ArrowRightIcon from "../assets/svg/icon-arrow-right.svg";
 
-const StyledButton = styled.button<{ variant: string; color?: string }>`
+export const StyledButton = styled.button<{ variant: string; color?: string }>`
   width: 10rem;
   height: 3rem;
   font: ${({ theme }) => theme.typography.subTitle};

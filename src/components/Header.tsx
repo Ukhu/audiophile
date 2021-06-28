@@ -4,6 +4,8 @@ import { IoCartOutline } from "react-icons/io5";
 
 import AudioPhileLogo from "../assets/svg/audiophile-logo.svg";
 
+import Cart from "./Cart";
+
 const StyledHeader = styled.header<{ variant: string }>`
   display: flex;
   align-items: center;
@@ -61,25 +63,30 @@ interface IHeaderProps {
 }
 
 const Header = ({ variant = "transparent" }: IHeaderProps) => {
+  const [openCart, setOpenCart] = React.useState(false);
+
   return (
-    <StyledHeader variant={variant}>
-      <Container>
-        <img src={AudioPhileLogo} alt="Brand" />
+    <div>
+      <StyledHeader variant={variant}>
+        <Container>
+          <img src={AudioPhileLogo} alt="Brand" />
 
-        <nav>
-          <NavList>
-            <NavItem>Home</NavItem>
-            <NavItem>Headphones</NavItem>
-            <NavItem>Speakers</NavItem>
-            <NavItem>Earphones</NavItem>
-          </NavList>
-        </nav>
+          <nav>
+            <NavList>
+              <NavItem>Home</NavItem>
+              <NavItem>Headphones</NavItem>
+              <NavItem>Speakers</NavItem>
+              <NavItem>Earphones</NavItem>
+            </NavList>
+          </nav>
 
-        <Icon>
-          <IoCartOutline />
-        </Icon>
-      </Container>
-    </StyledHeader>
+          <Icon onClick={() => setOpenCart(!openCart)}>
+            <IoCartOutline />
+          </Icon>
+        </Container>
+      </StyledHeader>
+      {openCart && <Cart />}
+    </div>
   );
 };
 
