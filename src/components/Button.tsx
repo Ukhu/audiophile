@@ -61,6 +61,19 @@ export const StyledButton = styled.button<{ variant: string; color?: string }>`
     `}
 `;
 
+const StyledBackBtn = styled.button`
+  text-align: left;
+  font: ${({ theme }) => theme.typography.body};
+  color: ${({ theme }) => theme.colors.neutral.black};
+  opacity: 0.5;
+  margin: 0 10.3125rem;
+  margin-top: 4.9375rem;
+  margin-bottom: 3.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+`;
+
 interface IButtonProps {
   text: string;
   variant: "filled" | "outline" | "ghost";
@@ -74,6 +87,10 @@ const Button = ({ text, variant, color }: IButtonProps) => {
       {variant === "ghost" && <img src={ArrowRightIcon} alt="Right caret" />}
     </StyledButton>
   );
+};
+
+Button.Back = () => {
+  return <StyledBackBtn>Go Back</StyledBackBtn>;
 };
 
 export default Button;

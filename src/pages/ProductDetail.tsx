@@ -15,19 +15,7 @@ import Footer from "../components/Footer";
 import ProductInfo from "../components/ProductInfo";
 import ProductGallery from "../components/ProductGallery";
 import SimilarProduct from "../components/SimilarProduct";
-
-const StyledBackBtn = styled.button`
-  text-align: left;
-  font: ${({ theme }) => theme.typography.body};
-  color: ${({ theme }) => theme.colors.neutral.black};
-  opacity: 0.5;
-  margin: 0 10.3125rem;
-  margin-top: 4.9375rem;
-  margin-bottom: 3.5rem;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-`;
+import Button from "../components/Button";
 
 const SimilarProductsGroup = styled.section`
   margin: 0 10.3125rem;
@@ -48,15 +36,11 @@ const SimilarProductsGroupTitle = styled.h3`
   text-align: center;
 `;
 
-const BackBtn = () => {
-  return <StyledBackBtn>Go Back</StyledBackBtn>;
-};
-
 const ProductDetail = () => {
   return (
     <div>
       <Header variant="filled" />
-      <BackBtn />
+      <Button.Back />
       <ProductCard product={MOCK_SINGLE_PRODUCT} />
       <ProductInfo />
       <ProductGallery />
