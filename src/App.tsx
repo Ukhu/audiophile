@@ -3,12 +3,12 @@ import { ThemeProvider } from "styled-components";
 
 import AudiophileTheme from "./theme/AudiophileTheme";
 
-import ProductDetail from "./pages/ProductDetail";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
     <ThemeProvider theme={AudiophileTheme}>
-      <ProductDetail />
+      <Checkout />
     </ThemeProvider>
   );
 }
