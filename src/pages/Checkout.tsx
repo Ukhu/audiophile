@@ -6,12 +6,15 @@ import Footer from "../components/Footer";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import Checkbox from "../components/Checkbox";
+import CheckoutSummary from "../components/CheckoutSummary";
 
 const StyledCheckout = styled.div`
   background-color: #f2f2f2;
 `;
 
 const CheckoutFormWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin: 0 10.3125rem;
   margin-top: -1.125rem;
   margin-bottom: 8.8125rem;
@@ -115,6 +118,7 @@ const Checkout = () => {
             </CheckoutSectionRow>
           </CheckoutSection>
         </CheckoutForm>
+        <CheckoutSummary />
       </CheckoutFormWrapper>
       <Footer />
     </StyledCheckout>

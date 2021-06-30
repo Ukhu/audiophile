@@ -36,7 +36,16 @@ const ItemText = styled.div`
   }
 `;
 
-const CartItem = () => {
+const ItemQuantity = styled(ItemText)`
+  align-self: start;
+  padding-top: 0.5rem;
+`;
+
+interface ICartItem {
+  summary?: boolean;
+}
+
+const CartItem = ({ summary }: ICartItem) => {
   return (
     <StyledCartItem>
       <ItemDetail>
@@ -46,7 +55,7 @@ const CartItem = () => {
           <ItemText>$ 2,999</ItemText>
         </div>
       </ItemDetail>
-      <QuantityInput small />
+      {summary ? <ItemQuantity>1x</ItemQuantity> : <QuantityInput small />}
     </StyledCartItem>
   );
 };
