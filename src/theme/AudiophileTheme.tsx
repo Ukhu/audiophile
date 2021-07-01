@@ -23,6 +23,10 @@ const AudiophileTheme = {
     subTitle: "13px/25px 'Manrope', sans-serif",
     body: "15px/25px 'Manrope', sans-serif",
   },
+  screens: {
+    tablet: "@media (min-width: 640px)",
+    laptop: "@media (min-width: 1024px)",
+  },
 };
 
 export default AudiophileTheme;

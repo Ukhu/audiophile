@@ -1,27 +1,49 @@
 import React from "react";
-import styled from "styled-components";
-import { IoCartOutline } from "react-icons/io5";
+import styled, { css } from "styled-components";
+import { IoCartOutline, IoMenu } from "react-icons/io5";
 
 import AudioPhileLogo from "../assets/svg/audiophile-logo.svg";
 
 import Cart from "./Cart";
 
 const StyledHeader = styled.header<{ variant: string }>`
+  height: 5.5625rem;
   display: flex;
   align-items: center;
   background-color: ${({ variant, theme }) =>
     variant === "filled" ? theme.colors.neutral.black : "transparent"};
-  height: 6rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    height: 6rem;
+  }
 `;
 
 const Container = styled.div`
+  height: 5.5625rem;
+  margin: 0 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 6rem;
-  margin: 0 10.3125rem;
   border-bottom: 1px solid #97979780;
+
+  ${({ theme }) => theme.screens.tablet} {
+    height: 6rem;
+    margin: 0 2.5rem;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    height: 6rem;
+    margin: 0 10.3125rem;
+  }
+`;
+
+const HeaderNav = styled.nav`
+  display: none;
+
+  ${({ theme }) => theme.screens.tablet} {
+    display: inline-block;
+  }
 `;
 
 const NavList = styled.ul`
@@ -48,7 +70,7 @@ const NavItem = styled.li`
   }
 `;
 
-const Icon = styled.div`
+const Icon = styled.div<{ menu?: boolean }>`
   font: ${({ theme }) => theme.typography.h5};
   color: ${({ theme }) => theme.colors.neutral.white};
   cursor: pointer;
@@ -56,6 +78,14 @@ const Icon = styled.div`
   &:hover {
     color: ${({ theme }) => theme.colors.brand.peru};
   }
+
+  ${({ menu, theme }) =>
+    menu &&
+    css`
+      ${theme.screens.tablet} {
+        display: none;
+      }
+    `}
 `;
 
 interface IHeaderProps {
@@ -70,16 +100,20 @@ const Header = ({ variant = "transparent" }: IHeaderProps) => {
       {showCart && <Cart hideCart={() => setShowCart(false)} />}
       <StyledHeader variant={variant}>
         <Container>
+          <Icon menu>
+            <IoMenu />
+          </Icon>
+
           <img src={AudioPhileLogo} alt="Brand" />
 
-          <nav>
+          <HeaderNav>
             <NavList>
               <NavItem>Home</NavItem>
               <NavItem>Headphones</NavItem>
               <NavItem>Speakers</NavItem>
               <NavItem>Earphones</NavItem>
             </NavList>
-          </nav>
+          </HeaderNav>
 
           <Icon onClick={() => setShowCart(true)}>
             <IoCartOutline />

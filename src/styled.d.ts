@@ -28,5 +28,9 @@ declare module "styled-components" {
       subTitle: string;
       body: string;
     };
+    screens: {
+      tablet: string;
+      laptop: string;
+    };
   }
 }

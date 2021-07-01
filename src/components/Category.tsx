@@ -9,13 +9,23 @@ import EarphoneImg from "../assets/img/image-earphones.png";
 import OvalBlur from "../assets/svg/oval-blur.svg";
 
 const StyledCategory = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 21.875rem;
-  height: 12.75rem;
   background: ${({ theme }) => theme.colors.brand.white};
   border-radius: 8px;
+  height: 12.75rem;
+  margin-bottom: 6rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    width: 13.9375rem;
+    margin-bottom: 0;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    width: 21.875rem;
+  }
 `;
 
 const CategoryImgWrapper = styled.div`
