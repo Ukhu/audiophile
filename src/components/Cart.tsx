@@ -61,9 +61,13 @@ const CartBtn = styled(StyledButton)`
   width: 100%;
 `;
 
-const Cart = () => {
+interface ICartProps {
+  hideCart: () => void;
+}
+
+const Cart = ({ hideCart }: ICartProps) => {
   return (
-    <Modal>
+    <Modal onClose={hideCart}>
       <StyledCart>
         <CartHeader>
           <CartTitle>Cart (3)</CartTitle>

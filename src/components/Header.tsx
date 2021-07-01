@@ -63,10 +63,11 @@ interface IHeaderProps {
 }
 
 const Header = ({ variant = "transparent" }: IHeaderProps) => {
-  const [openCart, setOpenCart] = React.useState(false);
+  const [showCart, setShowCart] = React.useState(false);
 
   return (
     <div>
+      {showCart && <Cart hideCart={() => setShowCart(false)} />}
       <StyledHeader variant={variant}>
         <Container>
           <img src={AudioPhileLogo} alt="Brand" />
@@ -80,12 +81,11 @@ const Header = ({ variant = "transparent" }: IHeaderProps) => {
             </NavList>
           </nav>
 
-          <Icon onClick={() => setOpenCart(!openCart)}>
+          <Icon onClick={() => setShowCart(true)}>
             <IoCartOutline />
           </Icon>
         </Container>
       </StyledHeader>
-      {openCart && <Cart />}
     </div>
   );
 };
