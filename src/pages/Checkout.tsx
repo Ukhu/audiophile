@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import Checkbox from "../components/Checkbox";
 import CheckoutSummary from "../components/CheckoutSummary";
+import OrderConfirmation from "../components/OrderConfirmation";
 
 const StyledCheckout = styled.div`
   background-color: #f2f2f2;
@@ -67,8 +68,13 @@ const RadioInputName = styled.div`
 `;
 
 const Checkout = () => {
+  const [showConfirmation, setShowConfirmation] = React.useState(false);
+
   return (
     <StyledCheckout>
+      {showConfirmation && (
+        <OrderConfirmation hide={() => setShowConfirmation(false)} />
+      )}
       <Header variant="filled" />
       <Button.Back />
       <CheckoutFormWrapper>
@@ -118,7 +124,7 @@ const Checkout = () => {
             </CheckoutSectionRow>
           </CheckoutSection>
         </CheckoutForm>
-        <CheckoutSummary />
+        <CheckoutSummary showConfirmation={() => setShowConfirmation(true)} />
       </CheckoutFormWrapper>
       <Footer />
     </StyledCheckout>

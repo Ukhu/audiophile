@@ -56,7 +56,11 @@ const CheckoutSummaryBtn = styled(StyledButton)`
   width: 100%;
 `;
 
-const CheckoutSummary = () => {
+interface ICheckoutSummaryProps {
+  showConfirmation: () => void;
+}
+
+const CheckoutSummary = ({ showConfirmation }: ICheckoutSummaryProps) => {
   return (
     <StyledCheckoutSummary>
       <CheckoutSummaryHeader>
@@ -83,7 +87,9 @@ const CheckoutSummary = () => {
         <CartTotal>Grand Total</CartTotal>
         <CartPriceTotal>$5,446</CartPriceTotal>
       </SummaryGrandTotal>
-      <CheckoutSummaryBtn variant="filled">Continue & Pay</CheckoutSummaryBtn>
+      <CheckoutSummaryBtn variant="filled" onClick={showConfirmation}>
+        Continue & Pay
+      </CheckoutSummaryBtn>
     </StyledCheckoutSummary>
   );
 };
