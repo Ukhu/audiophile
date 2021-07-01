@@ -3,15 +3,7 @@ import styled from "styled-components";
 
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
-
-const StyledModal = styled.div`
-  position: fixed;
-  margin-top: -6rem;
-  height: 100vh;
-  width: 100%;
-  background: #00000080;
-  z-index: 1000;
-`;
+import Modal from "./Modal";
 
 const StyledCart = styled.div`
   margin: 0 10.3125rem;
@@ -71,7 +63,7 @@ const CartBtn = styled(StyledButton)`
 
 const Cart = () => {
   return (
-    <StyledModal>
+    <Modal>
       <StyledCart>
         <CartHeader>
           <CartTitle>Cart (3)</CartTitle>
@@ -88,7 +80,7 @@ const Cart = () => {
         </CartSummary>
         <CartBtn variant="filled">Checkout</CartBtn>
       </StyledCart>
-    </StyledModal>
+    </Modal>
   );
 };
 
