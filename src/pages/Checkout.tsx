@@ -15,25 +15,50 @@ const StyledCheckout = styled.div`
 
 const CheckoutFormWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin: 0 10.3125rem;
+  flex-direction: column;
+  margin: 0 1.5rem;
   margin-top: -1.125rem;
-  margin-bottom: 8.8125rem;
+  margin-bottom: 6.0625rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin: 0 2.5rem;
+    margin-bottom: 8.8125rem;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 10.3125rem;
+  }
 `;
 
 const CheckoutForm = styled.div`
   background-color: ${({ theme }) => theme.colors.neutral.white};
-  width: 45.625rem;
-  padding: 3rem;
-  padding-top: 3.375rem;
+  padding: 1.5rem;
+  padding-top: 1.5rem;
   border-radius: 8px;
+  margin-bottom: 2rem;
+
+  ${({ theme }) => theme.screens.laptop} {
+    padding: 3rem;
+    padding-top: 3.375rem;
+    width: 45.625rem;
+    margin-bottom: 0;
+  }
 `;
 
 const CheckoutTitle = styled.h1`
-  font: ${({ theme }) => theme.typography.h3};
-  letter-spacing: 1.15px;
+  font: ${({ theme }) => theme.typography.h4};
+  letter-spacing: 2px;
   font-weight: bold;
   text-transform: uppercase;
+  margin: 0;
+
+  ${({ theme }) => theme.screens.tablet} {
+    font: ${({ theme }) => theme.typography.h3};
+    font-weight: bold;
+    letter-spacing: 1.15px;
+  }
 `;
 
 const CheckoutSection = styled.div`
@@ -52,19 +77,33 @@ const CheckoutSectionTitle = styled.h2`
   letter-spacing: 1px;
   font-weight: bold;
   text-transform: uppercase;
-  margin-top: 3rem;
+  margin-top: 2rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin-top: 3rem;
+  }
 `;
 
 const RadioInputWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   width: 100%;
   margin-bottom: 0.5rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
 const RadioInputName = styled.div`
   font: ${({ theme }) => theme.typography.body};
   font-weight: 700;
+  margin-bottom: 1rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin-bottom: 0;
+  }
 `;
 
 const Checkout = () => {

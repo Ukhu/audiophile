@@ -5,11 +5,15 @@ import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
 
 const StyledCheckoutSummary = styled.div`
-  width: 21.825rem;
   height: fit-content;
   background: ${({ theme }) => theme.colors.neutral.white};
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 8px;
+
+  ${({ theme }) => theme.screens.laptop} {
+    width: 21.825rem;
+    padding: 2rem;
+  }
 `;
 
 const CheckoutSummaryHeader = styled.div`

@@ -3,22 +3,30 @@ import styled from "styled-components";
 
 const StyledTextInput = styled.div<{ full?: boolean }>`
   margin-bottom: 1.5rem;
-  width: 19.3125rem;
+  width: 100%;
 
-  ${({ full }) => full && `width: 100%;`}
+  ${({ theme }) => theme.screens.tablet} {
+    width: 19.3125rem;
+
+    ${({ full }) => full && `width: 100%;`}
+  }
 `;
 
 const Input = styled.input<{ full?: boolean }>`
   font: ${({ theme }) => theme.typography.body};
   font-weight: 700;
   height: 3.5rem;
-  width: 19.3125rem;
+  width: 100%;
   padding: 0 1.5rem;
   border-radius: 8px;
   border: 1px solid #cfcfcf;
   color: rgba(0, 0, 0, 0.4);
 
-  ${({ full }) => full && `width: 100%;`}
+  ${({ theme }) => theme.screens.tablet} {
+    width: 19.3125rem;
+
+    ${({ full }) => full && `width: 100%;`}
+  }
 
   &:active,
   &:hover {

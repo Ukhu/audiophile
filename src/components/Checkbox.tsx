@@ -4,13 +4,17 @@ import styled from "styled-components";
 const StyledCheckbox = styled.div`
   display: flex;
   align-items: center;
-  width: 19.3125rem;
+  width: 100%;
   height: 3.5rem;
   margin-bottom: 1rem;
   padding: 0 1rem;
   border-radius: 8px;
   border: 1px solid #cfcfcf;
   color: ${({ theme }) => theme.colors.neutral.black};
+
+  ${({ theme }) => theme.screens.tablet} {
+    width: 19.3125rem;
+  }
 
   &:active,
   &:hover {
