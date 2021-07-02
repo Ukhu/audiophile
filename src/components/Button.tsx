@@ -66,12 +66,24 @@ const StyledBackBtn = styled.button`
   font: ${({ theme }) => theme.typography.body};
   color: ${({ theme }) => theme.colors.neutral.black};
   opacity: 0.5;
-  margin: 0 10.3125rem;
-  margin-top: 4.9375rem;
-  margin-bottom: 3.5rem;
+  margin: 0 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   border: none;
   background: transparent;
   cursor: pointer;
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin: 0 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    margin: 0 10.3125rem;
+    margin-top: 4.9375rem;
+    margin-bottom: 3.5rem;
+  }
 `;
 
 interface IButtonProps {

@@ -1,10 +1,10 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Button from "./Button";
 import QuantityInput from "./QuantityInput";
 
-const StyledProductCard = styled.article`
+const StyledProductCard = styled.article<{ price?: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +14,21 @@ const StyledProductCard = styled.article`
   &:nth-of-type(3) {
     margin-bottom: 0;
   }
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin: 0 2.5rem;
+  }
+
+  ${({ price, theme }) =>
+    price &&
+    css`
+      ${theme.screens.tablet} {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 10rem;
+        height: 30rem;
+      }
+    `}
 
   ${({ theme }) => theme.screens.laptop} {
     flex-direction: row;
@@ -28,15 +43,25 @@ const StyledProductCard = styled.article`
   }
 `;
 
-const ProductCardContent = styled.section`
+const ProductCardContent = styled.section<{ price?: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 
+  ${({ price }) => price && "align-items: flex-start;"}
+
   ${({ theme }) => theme.screens.tablet} {
     width: 35.75rem;
   }
+
+  ${({ price, theme }) =>
+    price &&
+    css`
+      ${theme.screens.tablet} {
+        width: 21.25rem;
+      }
+    `}
 
   ${({ theme }) => theme.screens.laptop} {
     display: block;
@@ -44,7 +69,7 @@ const ProductCardContent = styled.section`
   }
 `;
 
-const ProductName = styled.h2`
+const ProductName = styled.h2<{ price?: number }>`
   font: ${({ theme }) => theme.typography.h2};
   letter-spacing: 1.5px;
   font-weight: 700;
@@ -53,34 +78,37 @@ const ProductName = styled.h2`
   margin-bottom: 2rem;
   text-align: center;
 
+  ${({ price }) => price && "text-align: left;"}
+
   ${({ theme }) => theme.screens.laptop} {
     text-align: left;
   }
 `;
 
-const ProductDescription = styled.p`
+const ProductDescription = styled.p<{ price?: number }>`
   font: ${({ theme }) => theme.typography.body};
   margin: 0;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   opacity: 0.5;
   text-align: center;
 
+  ${({ price }) => price && "text-align: left;"}
+
   ${({ theme }) => theme.screens.laptop} {
+    margin-bottom: 2.5rem;
     text-align: left;
   }
 `;
 
-const ProductButtons = styled.div`
+const ProductButtons = styled.div<{ price?: number }>`
   display: flex;
   justify-content: center;
+  width: 18.5rem;
 
-  ${({ theme }) => theme.screens.laptop} {
-    justify-content: space-between;
-    width: 18.5rem;
-  }
+  ${({ price }) => price && "justify-content: space-between;"}
 `;
 
-const ProductImageHolder = styled.div`
+const ProductImageHolder = styled.div<{ price?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,6 +117,17 @@ const ProductImageHolder = styled.div`
   margin-bottom: 2rem;
   height: 22rem;
   background-color: #f1f1f1;
+
+  ${({ price, theme }) =>
+    price &&
+    css`
+      ${theme.screens.tablet} {
+        width: 17.5625rem;
+        height: 100%;
+        margin-right: 
+        margin-bottom: 0;
+      }
+    `}
 
   ${({ theme }) => theme.screens.laptop} {
     margin-bottom: 0;
@@ -105,7 +144,12 @@ const ProductPrice = styled.p`
   font: ${({ theme }) => theme.typography.h6};
   letter-spacing: 1.3px;
   font-weight: 700;
-  margin-bottom: 2.9375rem;
+  margin: 0;
+  margin-bottom: 2rem;
+
+  ${({ theme }) => theme.screens.laptop} {
+    margin-bottom: 2.9375rem;
+  }
 `;
 
 const NewProductIndicator = styled.div`
@@ -131,17 +175,17 @@ interface IProductCardProps {
 const ProductCard = ({ product }: IProductCardProps) => {
   const { name, descripton, imageUrl, price } = product;
   return (
-    <StyledProductCard>
-      <ProductImageHolder>
+    <StyledProductCard price={price}>
+      <ProductImageHolder price={price}>
         <ProductImage src={imageUrl} alt="Product" />
       </ProductImageHolder>
 
-      <ProductCardContent>
+      <ProductCardContent price={price}>
         {product.new && <NewProductIndicator>New Product</NewProductIndicator>}
-        <ProductName>{name}</ProductName>
-        <ProductDescription>{descripton}</ProductDescription>
+        <ProductName price={price}>{name}</ProductName>
+        <ProductDescription price={price}>{descripton}</ProductDescription>
         {price && <ProductPrice>${price}</ProductPrice>}
-        <ProductButtons>
+        <ProductButtons price={price}>
           {price && <QuantityInput />}
           <Button text="See Product" variant="filled" />
         </ProductButtons>
