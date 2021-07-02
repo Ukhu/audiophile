@@ -6,23 +6,44 @@ import ProductImg2 from "../assets/img/image-gallery-2.jpg";
 import ProductImg3 from "../assets/img/image-gallery-3.jpg";
 
 const StyledProductGallery = styled.div`
+  margin: 0 1.5rem;
+  height: 47.25rem;
   display: grid;
-  grid-template-rows: 17.5rem 17.5rem;
-  grid-template-columns: 27.8125rem 39.6875rem;
+  grid-template-rows: repeat(2, 1fr) 2fr;
+  grid-template-columns: 100%;
   grid-template-areas: ${css`
+    "image1"
+    "image2"
+    "image3"
+  `};
+  grid-gap: 1.5rem;
+  margin-bottom: 7.5rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    height: 23rem;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
+    grid-template-areas: ${css`
     "image1 image3"
     "image2 image3"
   `};
-  grid-gap: 2rem;
-  margin: 0 10.3125rem;
-  margin-bottom: 10rem;
+    grid-gap: 2rem;
+    margin: 0 2.5rem;
+    margin-bottom: 10rem;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    height: 37rem;
+    margin: 0 10.3125rem;
+    margin-bottom: 10rem;
+  }
 `;
 
 const GalleryImage = styled.div<{ name: string }>`
   background-size: cover;
   background-repeat: no-repeat;
-  width: 27.8125rem;
-  height: 17.5rem;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
 
   ${({ name }) =>
@@ -44,8 +65,8 @@ const GalleryImage = styled.div<{ name: string }>`
     css`
       background-image: url(${ProductImg3});
       grid-area: image3;
-      width: 39.6875rem;
-      height: 37rem;
+      width: 100%;
+      height: 100%;
     `}
 `;
 

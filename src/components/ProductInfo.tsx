@@ -3,9 +3,21 @@ import styled from "styled-components";
 
 const StyledProductInfo = styled.section`
   display: flex;
-  justify-content: space-between;
-  margin: 0 10.3125rem;
-  margin-bottom: 10rem;
+  flex-direction: column;
+  margin: 0 1.5rem;
+  margin-bottom: 7.5rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin: 0 2.5rem;
+    margin-bottom: 7.5rem;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 10.3125rem;
+    margin-bottom: 10rem;
+  }
 `;
 
 const ProductInfoHeading = styled.h3`
@@ -28,17 +40,40 @@ const ProductInfoBody = styled.p<{ opaque?: boolean }>`
 `;
 
 const ProductFeatures = styled.article`
-  width: 39.6875rem;
+  margin-bottom: 7.5rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    width: 39.6875rem;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    margin-bottom: 0;
+  }
 `;
 
-const ProductParts = styled.ul`
-  width: 21.875rem;
+const ProductParts = styled.div`
+  width: 100%;
+
+  ${({ theme }) => theme.screens.tablet} {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    display: block;
+    width: 21.875rem;
+  }
 `;
 
 const ProductPartsList = styled.ul`
   list-style: none;
+  width: 21.875rem;
   margin: 0;
   padding: 0;
+
+  ${({ theme }) => theme.screens.laptop} {
+    width: 100%;
+  }
 `;
 
 const ProductPartsItem = styled.li`

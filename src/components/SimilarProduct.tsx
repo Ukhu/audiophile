@@ -4,17 +4,42 @@ import styled from "styled-components";
 import Button from "./Button";
 
 const StyledSimilarProduct = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 21.875rem;
+  margin-bottom: 3.5rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    width: 13.9375rem;
+    margin-bottom: 0;
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    width: 21.875rem;
+  }
+`;
+
+const ProductImageWrapper = styled.div`
+  width: 100%;
+  height: 7.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f1f1;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    height: 19.875rem;
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const ProductImage = styled.img`
-  width: 21.875rem;
-  height: 19.875rem;
-  border-radius: 8px;
-  margin-bottom: 2.5rem;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 `;
 
 const ProductName = styled.h4`
@@ -22,6 +47,7 @@ const ProductName = styled.h4`
   letter-spacing: 1.7px;
   font-weight: 700;
   text-transform: uppercase;
+  margin: 0;
   margin-bottom: 2rem;
 `;
 
@@ -33,7 +59,9 @@ interface ISimilarProductProps {
 const SimilarProduct = ({ name, img }: ISimilarProductProps) => {
   return (
     <StyledSimilarProduct>
-      <ProductImage src={img} />
+      <ProductImageWrapper>
+        <ProductImage src={img} />
+      </ProductImageWrapper>
       <ProductName>{name}</ProductName>
       <Button text="See product" variant="filled" />
     </StyledSimilarProduct>

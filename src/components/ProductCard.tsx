@@ -25,7 +25,7 @@ const StyledProductCard = styled.article<{ price?: number }>`
       ${theme.screens.tablet} {
         flex-direction: row;
         justify-content: space-between;
-        margin-bottom: 10rem;
+        margin-bottom: 7.5rem;
         height: 30rem;
       }
     `}

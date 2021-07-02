@@ -18,12 +18,28 @@ import SimilarProduct from "../components/SimilarProduct";
 import Button from "../components/Button";
 
 const SimilarProductsGroup = styled.section`
-  margin: 0 10.3125rem;
-  margin-bottom: 16rem;
+  margin: 0 1.5rem;
+  margin-bottom: 7.5rem;
 
   & > div {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin: 0 2.5rem;
+    margin-bottom: 16rem;
+
+    & > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  ${({ theme }) => theme.screens.laptop} {
+    margin: 0 10.3125rem;
+    margin-bottom: 16rem;
   }
 `;
 
