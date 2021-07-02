@@ -6,13 +6,18 @@ import CartItem from "./CartItem";
 import Modal from "./Modal";
 
 const StyledCart = styled.div`
-  margin: 0 10.3125rem;
-  margin-left: auto;
-  margin-top: 8rem;
+  margin: 0 1.5rem;
   padding: 2rem;
   width: 23.5625rem;
   background: #ffffff;
   border-radius: 8px;
+
+  ${({ theme }) => theme.screens.tablet} {
+    width: 23.5625rem;
+    margin: 0 10.3125rem;
+    margin-left: auto;
+    margin-top: 8rem;
+  }
 `;
 
 const CartHeader = styled.div`

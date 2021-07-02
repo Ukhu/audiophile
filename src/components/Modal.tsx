@@ -7,6 +7,13 @@ const StyledModal = styled.div`
   width: 100%;
   background: #00000080;
   z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${({ theme }) => theme.screens.tablet} {
+    display: block;
+  }
 `;
 
 interface IModalProps {

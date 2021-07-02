@@ -8,12 +8,22 @@ import CartItem from "./CartItem";
 
 const StyledOrderConfirmation = styled.div`
   margin: 0 auto;
-  margin-top: 8rem;
-  padding: 3rem;
-  width: 33.75rem;
-  height: 36.3125rem;
+  // margin-top: 8rem;
+  width: 20.4375rem;
+  align-self: center;
+  justify-self: center;
+
+  padding: 2rem;
   background: #ffffff;
   border-radius: 8px;
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin: 0 auto;
+    margin-top: 8rem;
+    padding: 3rem;
+    width: 33.75rem;
+    height: 36.3125rem;
+  }
 `;
 
 const OrderConfirmationMark = styled.div`
@@ -26,38 +36,63 @@ const OrderConfirmationMark = styled.div`
   color: ${({ theme }) => theme.colors.neutral.white};
   border-radius: 50%;
   font: ${({ theme }) => theme.typography.h3};
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin-bottom: 2rem;
+  }
 `;
 
 const OrderConfirmationTitle = styled.h2`
-  font: ${({ theme }) => theme.typography.h3};
+  font: ${({ theme }) => theme.typography.h5};
   letter-spacing: 1.15px;
   font-weight: bold;
   text-transform: uppercase;
-  width: 17.75rem;
-  margin-bottom: 1.5rem;
+  margin: 0;
+  margin-bottom: 1rem;
+
+  ${({ theme }) => theme.screens.tablet} {
+    font: ${({ theme }) => theme.typography.h3};
+    letter-spacing: 1.7px;
+    width: 17.75rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const OrderConfirmationMessage = styled.p`
   font: ${({ theme }) => theme.typography.body};
-  margin-bottom: 2rem;
+  margin: 0;
+  margin-bottom: 1.5rem;
   color: ${({ theme }) => theme.colors.neutral.black};
   opacity: 0.5;
+
+  ${({ theme }) => theme.screens.tablet} {
+    margin-bottom: 2rem;
+  }
 `;
 
 const OrderSummary = styled.div`
   background: ${({ theme }) => theme.colors.brand.white};
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin-top: 2rem;
-  margin-bottom: 2.875rem;
-  height: 8.75rem;
+  margin-bottom: 1.5rem;
   border-radius: 8px;
+
+  ${({ theme }) => theme.screens.tablet} {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 8.75rem;
+    margin-bottom: 2.875rem;
+  }
 `;
 
 const CartItems = styled.div`
   padding: 1.5rem;
-  width: 60%;
+
+  ${({ theme }) => theme.screens.tablet} {
+    width: 60%;
+  }
 `;
 
 const ExtraItems = styled.div`
@@ -75,8 +110,8 @@ const GrandTotal = styled.div`
   flex-direction: column;
   justify-content: center;
   background: ${({ theme }) => theme.colors.neutral.black};
-  border-radius: 0 8px 8px 0;
-  padding: 0 2rem;
+  border-radius: 0 0 8px 8px;
+  padding: 1.5rem;
 
   & > div:first-child {
     font: ${({ theme }) => theme.typography.body};
@@ -90,6 +125,11 @@ const GrandTotal = styled.div`
     font: ${({ theme }) => theme.typography.h6};
     font-weight: 700;
     color: ${({ theme }) => theme.colors.neutral.white};
+  }
+
+  ${({ theme }) => theme.screens.tablet} {
+    padding: 0 2rem;
+    border-radius: 0 8px 8px 0;
   }
 `;
 
