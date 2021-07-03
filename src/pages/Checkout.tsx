@@ -29,6 +29,7 @@ const CheckoutFormWrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin: 0 10.3125rem;
+    margin-bottom: 8.8125rem;
   }
 `;
 

@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { IoCartOutline, IoMenu } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 import AudioPhileLogo from "../assets/svg/audiophile-logo.svg";
 
@@ -62,8 +63,13 @@ const NavItem = styled.li`
   text-transform: uppercase;
   cursor: pointer;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.brand.peru};
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.neutral.white};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.brand.peru};
+    }
   }
 
   &:not(:last-child) {
@@ -112,10 +118,18 @@ const Header = ({ variant = "transparent" }: IHeaderProps) => {
 
           <HeaderNav>
             <NavList>
-              <NavItem>Home</NavItem>
-              <NavItem>Headphones</NavItem>
-              <NavItem>Speakers</NavItem>
-              <NavItem>Earphones</NavItem>
+              <NavItem>
+                <Link to="/">Home</Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/category/headphones">Headphones</Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/category/speakers">Speakers</Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/category/earphones">Earphones</Link>
+              </NavItem>
             </NavList>
           </HeaderNav>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 import Button from "./Button";
 import QuantityInput from "./QuantityInput";
@@ -166,6 +167,10 @@ const NewProductIndicator = styled.div`
   margin-bottom: 1rem;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 interface IProduct {
   name: string;
   descripton: string;
@@ -193,7 +198,15 @@ const ProductCard = ({ product }: IProductCardProps) => {
         {price && <ProductPrice>${price}</ProductPrice>}
         <ProductButtons price={price}>
           {price && <QuantityInput />}
-          <Button text="See Product" variant="filled" />
+          {price ? (
+            <Button text="Add to Cart" variant="filled" />
+          ) : (
+            <StyledLink
+              to={`/product/${name.split(" ").join("-").toLowerCase()}`}
+            >
+              <Button variant="filled" text="See Product" />
+            </StyledLink>
+          )}
         </ProductButtons>
       </ProductCardContent>
     </StyledProductCard>

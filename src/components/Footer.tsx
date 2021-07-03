@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import BrandLogo from "../assets/svg/audiophile-logo.svg";
 import FacebookIcon from "../assets/svg/icon-facebook.svg";
@@ -92,8 +93,13 @@ const FooterNavItem = styled.li`
   text-transform: uppercase;
   cursor: pointer;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.brand.peru};
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.neutral.white};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.brand.peru};
+    }
   }
 
   &:not(:last-child) {
@@ -176,10 +182,18 @@ const Footer = () => {
 
           <nav>
             <FooterNav>
-              <FooterNavItem>Home</FooterNavItem>
-              <FooterNavItem>Headphones</FooterNavItem>
-              <FooterNavItem>Speakers</FooterNavItem>
-              <FooterNavItem>Earphones</FooterNavItem>
+              <FooterNavItem>
+                <Link to="/">Home</Link>
+              </FooterNavItem>
+              <FooterNavItem>
+                <Link to="/category/headphones">Headphones</Link>
+              </FooterNavItem>
+              <FooterNavItem>
+                <Link to="/category/speakers">Speakers</Link>
+              </FooterNavItem>
+              <FooterNavItem>
+                <Link to="/category/earphones">Earphones</Link>
+              </FooterNavItem>
             </FooterNav>
           </nav>
         </FooterHead>

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { IoCheckmarkSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 import { StyledButton } from "./Button";
 import Modal from "./Modal";
@@ -137,6 +138,10 @@ const OrderConfirmationBtn = styled(StyledButton)`
   width: 100%;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 interface IOrderConfirmationProps {
   hide: () => void;
 }
@@ -164,9 +169,12 @@ const OrderConfirmation = ({ hide }: IOrderConfirmationProps) => {
             <div>$5,466</div>
           </GrandTotal>
         </OrderSummary>
-        <OrderConfirmationBtn variant="filled">
-          Back to home
-        </OrderConfirmationBtn>
+
+        <StyledLink to="/">
+          <OrderConfirmationBtn variant="filled">
+            Back to home
+          </OrderConfirmationBtn>
+        </StyledLink>
       </StyledOrderConfirmation>
     </Modal>
   );

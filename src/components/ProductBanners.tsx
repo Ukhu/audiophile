@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 import EarphoneImg from "../assets/img/image-earphones-yx1.jpg";
 import SpeakerImg from "../assets/img/image-speaker-zx7.jpg";
@@ -178,6 +179,10 @@ const BannerBody = styled.p`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const ProductBanners = () => {
   return (
     <StyledBanners>
@@ -186,18 +191,25 @@ const ProductBanners = () => {
 
         <BannerContent>
           <PrimaryBannerName>ZX9 speaker</PrimaryBannerName>
+
           <BannerBody>
             Upgrade to premium speakers that are phenomenally built to deliver
             truly remarkable sound.
           </BannerBody>
-          <Button text="See Product" variant="filled" color="black" />
+
+          <StyledLink to="/product/zx9-speaker">
+            <Button variant="filled" color="black" text="See Product" />
+          </StyledLink>
         </BannerContent>
       </Banner>
 
       <Banner name="speaker-2">
         <BannerContent>
           <SecondaryBannerName>ZX7 speaker</SecondaryBannerName>
-          <Button text="See Product" variant="outline" />
+
+          <StyledLink to="/product/zx7-speaker">
+            <Button variant="outline" text="See Product" />
+          </StyledLink>
         </BannerContent>
       </Banner>
 
@@ -206,7 +218,10 @@ const ProductBanners = () => {
       <Banner name="earphone-2">
         <BannerContent>
           <SecondaryBannerName>YX1 earphones</SecondaryBannerName>
-          <Button text="See Product" variant="outline" />
+
+          <StyledLink to="/product/yx1-earphones">
+            <Button variant="outline" text="See Product" />
+          </StyledLink>
         </BannerContent>
       </Banner>
     </StyledBanners>

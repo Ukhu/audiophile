@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
@@ -66,6 +67,10 @@ const CartBtn = styled(StyledButton)`
   width: 100%;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 interface ICartProps {
   hideCart: () => void;
 }
@@ -87,7 +92,10 @@ const Cart = ({ hideCart }: ICartProps) => {
           <CartTotal>Total</CartTotal>
           <CartPriceTotal>$5,396</CartPriceTotal>
         </CartSummary>
-        <CartBtn variant="filled">Checkout</CartBtn>
+
+        <StyledLink to="/checkout">
+          <CartBtn variant="filled">Checkout</CartBtn>
+        </StyledLink>
       </StyledCart>
     </Modal>
   );

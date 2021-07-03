@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Button from "./Button";
 
@@ -51,6 +52,10 @@ const ProductName = styled.h4`
   margin-bottom: 2rem;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 interface ISimilarProductProps {
   name: string;
   img: string;
@@ -63,7 +68,9 @@ const SimilarProduct = ({ name, img }: ISimilarProductProps) => {
         <ProductImage src={img} />
       </ProductImageWrapper>
       <ProductName>{name}</ProductName>
-      <Button text="See product" variant="filled" />
+      <StyledLink to={`/product/${name.split(" ").join("-").toLowerCase()}`}>
+        <Button variant="filled" text="See Product" />
+      </StyledLink>
     </StyledSimilarProduct>
   );
 };

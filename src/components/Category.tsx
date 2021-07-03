@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Button from "./Button";
 
@@ -58,6 +59,10 @@ const CategoryName = styled.h6`
   text-transform: uppercase;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 interface ICategoryProps {
   name: string;
 }
@@ -70,7 +75,9 @@ const Category = ({ name }: ICategoryProps) => {
         <CategoryImgBlur src={OvalBlur} alt="Blur" />
       </CategoryImgWrapper>
       <CategoryName>{name}</CategoryName>
-      <Button text="Shop" variant="ghost" />
+      <StyledLink to={`/category/${name.toLowerCase()}`}>
+        <Button variant="ghost" text="Shop" />
+      </StyledLink>
     </StyledCategory>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import HeroImg from "../assets/img/image-hero.jpg";
 
@@ -98,6 +99,10 @@ const HeroBodyText = styled.p`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const Hero = () => {
   return (
     <StyledHero>
@@ -110,7 +115,9 @@ const Hero = () => {
             made for the passionate music enthusiast.
           </HeroBodyText>
 
-          <Button text="See product" variant="filled" />
+          <StyledLink to="/product/xx99-mark-ii-headphones">
+            <Button variant="filled" text="See Product" />
+          </StyledLink>
         </HeroArticle>
       </Container>
     </StyledHero>
