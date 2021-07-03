@@ -5,6 +5,7 @@ import { IoCartOutline, IoMenu } from "react-icons/io5";
 import AudioPhileLogo from "../assets/svg/audiophile-logo.svg";
 
 import Cart from "./Cart";
+import MenuDropdown from "./MenuDropdown";
 
 const StyledHeader = styled.header<{ variant: string }>`
   height: 5.5625rem;
@@ -94,13 +95,16 @@ interface IHeaderProps {
 
 const Header = ({ variant = "transparent" }: IHeaderProps) => {
   const [showCart, setShowCart] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(false);
 
   return (
     <div>
       {showCart && <Cart hideCart={() => setShowCart(false)} />}
+      {openMenu && <MenuDropdown hideMenu={() => setOpenMenu(false)} />}
+
       <StyledHeader variant={variant}>
         <Container>
-          <Icon menu>
+          <Icon menu onClick={() => setOpenMenu(true)}>
             <IoMenu />
           </Icon>
 
