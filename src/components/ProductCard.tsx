@@ -17,6 +17,7 @@ const StyledProductCard = styled.article<{ price?: number }>`
 
   ${({ theme }) => theme.screens.tablet} {
     margin: 0 2.5rem;
+    margin-bottom: 7.5rem;
   }
 
   ${({ price, theme }) =>
@@ -104,6 +105,11 @@ const ProductButtons = styled.div<{ price?: number }>`
   display: flex;
   justify-content: center;
   width: 18.5rem;
+
+  ${({ theme }) => theme.screens.laptop} {
+    justify-content: flex-start;
+    ${({ price }) => price && "justify-content: space-between;"}
+  }
 
   ${({ price }) => price && "justify-content: space-between;"}
 `;
