@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { ICheckBoxProps } from "../types/common";
+
 const StyledCheckbox = styled.div`
   display: flex;
   align-items: center;
@@ -48,12 +50,6 @@ const CheckboxLabel = styled.label`
   font: ${({ theme }) => theme.typography.body};
   font-weight: 700;
 `;
-
-interface ICheckBoxProps {
-  name: string;
-  label: string;
-  id: string;
-}
 
 const Checkbox = ({ name, label, id }: ICheckBoxProps) => {
   return (

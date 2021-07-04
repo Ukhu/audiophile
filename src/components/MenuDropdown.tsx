@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { IMenuDropdownProps } from "../types/common";
+
 import CategoryGroup from "./CategoryGroup";
 
 const StyledMenuDropdown = styled.section`
@@ -17,10 +19,6 @@ const CategoryGroupWrap = styled.div`
   padding-top: 1rem;
   margin-top: 5.5625rem;
 `;
-
-interface IMenuDropdownProps {
-  hideMenu: () => void;
-}
 
 const MenuDropdown = ({ hideMenu }: IMenuDropdownProps) => {
   return (

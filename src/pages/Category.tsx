@@ -1,7 +1,11 @@
 import React from "react";
+import firebase from "firebase";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
-import { MOCK_PRODUCTS } from "../utils/mockData";
+import FirestoreContext from "../contexts/FirestoreContext";
+import { IProduct } from "../types/product";
+import { ICategoryPathParams } from "../types/category";
 
 import Header from "../components/Header";
 import CategoryGroup from "../components/CategoryGroup";
@@ -43,14 +47,28 @@ const CategoryProducts = styled.section`
 `;
 
 const CategoryPage = () => {
+  const { db } = React.useContext(FirestoreContext);
+  const { categoryName } = useParams<ICategoryPathParams>();
+  const [products, setProducts] =
+    React.useState<firebase.firestore.DocumentData>([]);
+
+  React.useEffect(() => {
+    db?.collection("products")
+      .where("category", "==", categoryName)
+      .get()
+      .then((querySnapshot) => {
+        setProducts(querySnapshot.docs.map((doc) => doc.data()));
+      });
+  });
+
   return (
     <div>
       <Header />
       <CategoryHead>
-        <CategoryName>Headphones</CategoryName>
+        <CategoryName>{categoryName.toUpperCase()}</CategoryName>
       </CategoryHead>
       <CategoryProducts>
-        {MOCK_PRODUCTS.map((product) => (
+        {products.map((product: IProduct) => (
           <ProductCard key={product.name} product={product} />
         ))}
       </CategoryProducts>

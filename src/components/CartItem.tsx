@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { ICartItem } from "../types/cart";
+
 import MarkOneImg from "../assets/img/image-xx99-mark-one-headphones.jpg";
 
 import QuantityInput from "./QuantityInput";
@@ -44,11 +46,6 @@ const ItemQuantity = styled(ItemText)`
   align-self: start;
   padding-top: 0.5rem;
 `;
-
-interface ICartItem {
-  summary?: boolean;
-  small?: boolean;
-}
 
 const CartItem = ({ summary, small }: ICartItem) => {
   return (

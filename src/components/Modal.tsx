@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { IModalProps } from "../types/common";
+
 const StyledModal = styled.div`
   position: fixed;
   height: 100vh;
@@ -15,11 +17,6 @@ const StyledModal = styled.div`
     display: block;
   }
 `;
-
-interface IModalProps {
-  onClose: () => void;
-  children: React.ReactNode;
-}
 
 const Modal = ({ children, onClose }: IModalProps) => {
   return <StyledModal onClick={onClose}>{children}</StyledModal>;

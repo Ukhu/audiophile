@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import { IButtonProps } from "../types/common";
+
 import ArrowRightIcon from "../assets/svg/icon-arrow-right.svg";
 
 export const StyledButton = styled.button<{ variant: string; color?: string }>`
@@ -85,12 +87,6 @@ const StyledBackBtn = styled.button`
     margin-bottom: 3.5rem;
   }
 `;
-
-interface IButtonProps {
-  text: string;
-  variant: "filled" | "outline" | "ghost";
-  color?: string;
-}
 
 const Button = ({ text, variant, color }: IButtonProps) => {
   return (

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
+import { IOrderConfirmationProps } from "../types/common";
+
 import { StyledButton } from "./Button";
 import Modal from "./Modal";
 import CartItem from "./CartItem";
@@ -141,10 +143,6 @@ const OrderConfirmationBtn = styled(StyledButton)`
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
-
-interface IOrderConfirmationProps {
-  hide: () => void;
-}
 
 const OrderConfirmation = ({ hide }: IOrderConfirmationProps) => {
   return (

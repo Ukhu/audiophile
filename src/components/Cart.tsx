@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { ICartProps } from "../types/cart";
+
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
 import Modal from "./Modal";
@@ -70,10 +72,6 @@ const CartBtn = styled(StyledButton)`
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
-
-interface ICartProps {
-  hideCart: () => void;
-}
 
 const Cart = ({ hideCart }: ICartProps) => {
   return (

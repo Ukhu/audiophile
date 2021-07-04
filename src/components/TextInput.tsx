@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { ITextInputProps } from "../types/common";
+
 const StyledTextInput = styled.div<{ full?: boolean }>`
   margin-bottom: 1.5rem;
   width: 100%;
@@ -46,18 +48,11 @@ const InputLabel = styled.label`
   font-weight: 700;
 `;
 
-interface ITextInputProps {
-  name: string;
-  placeholder: string;
-  full?: boolean;
-}
-
 const TextInput = ({ name, placeholder, full }: ITextInputProps) => {
   return (
     <StyledTextInput full={full}>
       <InputHeading>
         <InputLabel htmlFor={name}>{name}</InputLabel>
-        {/* <div>Wrong format</div> */}
       </InputHeading>
       <Input id={name} type="text" placeholder={placeholder} full={full} />
     </StyledTextInput>

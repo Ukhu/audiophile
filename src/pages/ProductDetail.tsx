@@ -1,11 +1,14 @@
 import React from "react";
+import firebase from "firebase";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
 import MarkOneImg from "../assets/img/image-xx99-mark-one-headphones.jpg";
 import XXFiveNineImg from "../assets/img/image-xx59-headphones.jpg";
 import ZXNineImg from "../assets/img/image-zx9-speaker.jpg";
 
-import { MOCK_SINGLE_PRODUCT } from "../utils/mockData";
+import FirestoreContext from "../contexts/FirestoreContext";
+import { IProduct, IProductDetailPathParams } from "../types/product";
 
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
@@ -53,11 +56,26 @@ const SimilarProductsGroupTitle = styled.h3`
 `;
 
 const ProductDetail = () => {
+  const { db } = React.useContext(FirestoreContext);
+  const { productSlug } = useParams<IProductDetailPathParams>();
+  const [product, setProduct] =
+    React.useState<firebase.firestore.DocumentData | null>(null);
+
+  React.useEffect(() => {
+    db?.collection("products")
+      .where("slug", "==", productSlug)
+      .get()
+      .then((querySnapshot) => {
+        setProduct(querySnapshot.docs.map((doc) => doc.data())[0]);
+      });
+  });
+
   return (
     <div>
       <Header variant="filled" />
       <Button.Back />
-      <ProductCard product={MOCK_SINGLE_PRODUCT} />
+      {product && <ProductCard product={product as IProduct} addToCart />}
+
       <ProductInfo />
       <ProductGallery />
       <SimilarProductsGroup>

@@ -2,10 +2,12 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
+import { IProductCardProps } from "../types/product";
+
 import Button from "./Button";
 import QuantityInput from "./QuantityInput";
 
-const StyledProductCard = styled.article<{ price?: number }>`
+const StyledProductCard = styled.article<{ addToCart?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,8 +23,8 @@ const StyledProductCard = styled.article<{ price?: number }>`
     margin-bottom: 7.5rem;
   }
 
-  ${({ price, theme }) =>
-    price &&
+  ${({ addToCart, theme }) =>
+    addToCart &&
     css`
       ${theme.screens.tablet} {
         flex-direction: row;
@@ -45,20 +47,20 @@ const StyledProductCard = styled.article<{ price?: number }>`
   }
 `;
 
-const ProductCardContent = styled.section<{ price?: number }>`
+const ProductCardContent = styled.section<{ addToCart?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 
-  ${({ price }) => price && "align-items: flex-start;"}
+  ${({ addToCart }) => addToCart && "align-items: flex-start;"}
 
   ${({ theme }) => theme.screens.tablet} {
     width: 35.75rem;
   }
 
-  ${({ price, theme }) =>
-    price &&
+  ${({ addToCart, theme }) =>
+    addToCart &&
     css`
       ${theme.screens.tablet} {
         width: 21.25rem;
@@ -71,7 +73,7 @@ const ProductCardContent = styled.section<{ price?: number }>`
   }
 `;
 
-const ProductName = styled.h2<{ price?: number }>`
+const ProductName = styled.h2<{ addToCart?: boolean }>`
   font: ${({ theme }) => theme.typography.h2};
   letter-spacing: 1.5px;
   font-weight: 700;
@@ -80,21 +82,21 @@ const ProductName = styled.h2<{ price?: number }>`
   margin-bottom: 2rem;
   text-align: center;
 
-  ${({ price }) => price && "text-align: left;"}
+  ${({ addToCart }) => addToCart && "text-align: left;"}
 
   ${({ theme }) => theme.screens.laptop} {
     text-align: left;
   }
 `;
 
-const ProductDescription = styled.p<{ price?: number }>`
+const ProductDescription = styled.p<{ addToCart?: boolean }>`
   font: ${({ theme }) => theme.typography.body};
   margin: 0;
   margin-bottom: 1.5rem;
   opacity: 0.5;
   text-align: center;
 
-  ${({ price }) => price && "text-align: left;"}
+  ${({ addToCart }) => addToCart && "text-align: left;"}
 
   ${({ theme }) => theme.screens.laptop} {
     margin-bottom: 2.5rem;
@@ -102,20 +104,20 @@ const ProductDescription = styled.p<{ price?: number }>`
   }
 `;
 
-const ProductButtons = styled.div<{ price?: number }>`
+const ProductButtons = styled.div<{ addToCart?: boolean }>`
   display: flex;
   justify-content: center;
   width: 18.5rem;
 
   ${({ theme }) => theme.screens.laptop} {
     justify-content: flex-start;
-    ${({ price }) => price && "justify-content: space-between;"}
+    ${({ addToCart }) => addToCart && "justify-content: space-between;"}
   }
 
-  ${({ price }) => price && "justify-content: space-between;"}
+  ${({ addToCart }) => addToCart && "justify-content: space-between;"}
 `;
 
-const ProductImageHolder = styled.div<{ price?: number }>`
+const ProductImageHolder = styled.div<{ addToCart?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,8 +127,8 @@ const ProductImageHolder = styled.div<{ price?: number }>`
   height: 22rem;
   background-color: #f1f1f1;
 
-  ${({ price, theme }) =>
-    price &&
+  ${({ addToCart, theme }) =>
+    addToCart &&
     css`
       ${theme.screens.tablet} {
         width: 17.5625rem;
@@ -171,34 +173,24 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-interface IProduct {
-  name: string;
-  descripton: string;
-  new: boolean;
-  imageUrl: string;
-  price?: number;
-}
-
-interface IProductCardProps {
-  product: IProduct;
-}
-
-const ProductCard = ({ product }: IProductCardProps) => {
-  const { name, descripton, imageUrl, price } = product;
+const ProductCard = ({ product, addToCart }: IProductCardProps) => {
+  const { name, description, image, price } = product;
   return (
-    <StyledProductCard price={price}>
-      <ProductImageHolder price={price}>
-        <ProductImage src={imageUrl} alt="Product" />
+    <StyledProductCard addToCart={addToCart}>
+      <ProductImageHolder addToCart={addToCart}>
+        <ProductImage src={image.desktop} alt="Product" />
       </ProductImageHolder>
 
-      <ProductCardContent price={price}>
+      <ProductCardContent addToCart={addToCart}>
         {product.new && <NewProductIndicator>New Product</NewProductIndicator>}
-        <ProductName price={price}>{name}</ProductName>
-        <ProductDescription price={price}>{descripton}</ProductDescription>
-        {price && <ProductPrice>${price}</ProductPrice>}
-        <ProductButtons price={price}>
-          {price && <QuantityInput />}
-          {price ? (
+        <ProductName addToCart={addToCart}>{name}</ProductName>
+        <ProductDescription addToCart={addToCart}>
+          {description}
+        </ProductDescription>
+        {addToCart && <ProductPrice>${price.toLocaleString()}</ProductPrice>}
+        <ProductButtons addToCart={addToCart}>
+          {addToCart && <QuantityInput />}
+          {addToCart ? (
             <Button text="Add to Cart" variant="filled" />
           ) : (
             <StyledLink

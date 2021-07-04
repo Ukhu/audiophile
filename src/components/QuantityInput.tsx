@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import { IQuantityInput } from "../types/common";
+
 const ProductQty = styled.div<{ small?: boolean }>`
   background-color: ${({ theme }) => theme.colors.brand.white};
   display: flex;
@@ -40,10 +42,6 @@ const ProductInput = styled.input`
   background: transparent;
   border: none;
 `;
-
-interface IQuantityInput {
-  small?: boolean;
-}
 
 const QuantityInput = ({ small }: IQuantityInput) => {
   return (

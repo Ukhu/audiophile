@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { ICheckoutSummaryProps } from "../types/common";
+
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
 
@@ -59,10 +61,6 @@ const CartTotal = styled.span`
 const CheckoutSummaryBtn = styled(StyledButton)`
   width: 100%;
 `;
-
-interface ICheckoutSummaryProps {
-  showConfirmation: () => void;
-}
 
 const CheckoutSummary = ({ showConfirmation }: ICheckoutSummaryProps) => {
   return (

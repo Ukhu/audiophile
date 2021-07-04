@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { ISimilarProductProps } from "../types/product";
+
 import Button from "./Button";
 
 const StyledSimilarProduct = styled.div`
@@ -55,11 +57,6 @@ const ProductName = styled.h4`
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
-
-interface ISimilarProductProps {
-  name: string;
-  img: string;
-}
 
 const SimilarProduct = ({ name, img }: ISimilarProductProps) => {
   return (

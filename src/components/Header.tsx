@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 import AudioPhileLogo from "../assets/svg/audiophile-logo.svg";
 
+import { IHeaderProps } from "../types/common";
+
 import Cart from "./Cart";
 import MenuDropdown from "./MenuDropdown";
 
@@ -94,10 +96,6 @@ const Icon = styled.div<{ menu?: boolean }>`
       }
     `}
 `;
-
-interface IHeaderProps {
-  variant?: "filled" | "transparent";
-}
 
 const Header = ({ variant = "transparent" }: IHeaderProps) => {
   const [showCart, setShowCart] = React.useState(false);
