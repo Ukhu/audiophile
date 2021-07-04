@@ -5,6 +5,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 import AudiophileTheme from "./theme/AudiophileTheme";
+import { FirestoreProvider } from "./contexts/FirestoreContext";
 
 import Landing from "./pages/Landing";
 import Category from "./pages/Category";
@@ -24,24 +25,26 @@ firebase.initializeApp(firebaseConfig);
 
 function App() {
   return (
-    <Router>
-      <ThemeProvider theme={AudiophileTheme}>
-        <Switch>
-          <Route exact path="/category/:id">
-            <Category />
-          </Route>
-          <Route exact path="/product/:id">
-            <ProductDetail />
-          </Route>
-          <Route exact path="/checkout">
-            <Checkout />
-          </Route>
-          <Route path="/">
-            <Landing />
-          </Route>
-        </Switch>
-      </ThemeProvider>
-    </Router>
+    <ThemeProvider theme={AudiophileTheme}>
+      <FirestoreProvider value={{ db: firebase.firestore() }}>
+        <Router>
+          <Switch>
+            <Route exact path="/category/:categoryName">
+              <Category />
+            </Route>
+            <Route exact path="/product/:productSlug">
+              <ProductDetail />
+            </Route>
+            <Route exact path="/checkout">
+              <Checkout />
+            </Route>
+            <Route path="/">
+              <Landing />
+            </Route>
+          </Switch>
+        </Router>
+      </FirestoreProvider>
+    </ThemeProvider>
   );
 }
 
