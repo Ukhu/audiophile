@@ -1,11 +1,11 @@
 import React from "react";
-import firebase from "firebase";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-import FirestoreContext from "../contexts/FirestoreContext";
 import { IProduct } from "../types/product";
 import { ICategoryPathParams } from "../types/category";
+
+import useCategory from "../hooks/useCategory";
 
 import Header from "../components/Header";
 import CategoryGroup from "../components/CategoryGroup";
@@ -47,19 +47,8 @@ const CategoryProducts = styled.section`
 `;
 
 const CategoryPage = () => {
-  const { db } = React.useContext(FirestoreContext);
   const { categoryName } = useParams<ICategoryPathParams>();
-  const [products, setProducts] =
-    React.useState<firebase.firestore.DocumentData>([]);
-
-  React.useEffect(() => {
-    db?.collection("products")
-      .where("category", "==", categoryName)
-      .get()
-      .then((querySnapshot) => {
-        setProducts(querySnapshot.docs.map((doc) => doc.data()));
-      });
-  });
+  const { categoryProducts } = useCategory(categoryName);
 
   return (
     <div>
@@ -68,7 +57,7 @@ const CategoryPage = () => {
         <CategoryName>{categoryName.toUpperCase()}</CategoryName>
       </CategoryHead>
       <CategoryProducts>
-        {products.map((product: IProduct) => (
+        {categoryProducts.map((product: IProduct) => (
           <ProductCard key={product.name} product={product} />
         ))}
       </CategoryProducts>
