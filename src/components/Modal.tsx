@@ -19,7 +19,18 @@ const StyledModal = styled.div`
 `;
 
 const Modal = ({ children, onClose }: IModalProps) => {
-  return <StyledModal onClick={onClose}>{children}</StyledModal>;
+  const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Only run for events that occur on the modal backdrop itself and not the child elements
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <StyledModal onClick={closeModal} id="modal">
+      {children}
+    </StyledModal>
+  );
 };
 
 export default Modal;
