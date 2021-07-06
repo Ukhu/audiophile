@@ -4,6 +4,7 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 import { IOrderConfirmationProps } from "../types/common";
+import { getCartTotal } from "../utils/helpers";
 
 import { CartContext } from "../contexts/CartContext";
 
@@ -147,7 +148,9 @@ const StyledLink = styled(Link)`
 `;
 
 const OrderConfirmation = ({ hide }: IOrderConfirmationProps) => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, removeFromCart } = useContext(CartContext);
+
+  const remainingItems = cartItems.length - 1;
 
   return (
     <Modal onClose={hide}>
@@ -164,15 +167,17 @@ const OrderConfirmation = ({ hide }: IOrderConfirmationProps) => {
         <OrderSummary>
           <CartItems>
             <CartItem summary small item={cartItems[0]} />
-            <ExtraItems>and 2 other item(s)</ExtraItems>
+            {remainingItems > 0 && (
+              <ExtraItems>and {remainingItems} other item(s)</ExtraItems>
+            )}
           </CartItems>
           <GrandTotal>
             <div>Grand Total</div>
-            <div>$5,466</div>
+            <div>${getCartTotal(cartItems).toLocaleString()}</div>
           </GrandTotal>
         </OrderSummary>
 
-        <StyledLink to="/">
+        <StyledLink to="/" onClick={() => removeFromCart()}>
           <OrderConfirmationBtn variant="filled">
             Back to home
           </OrderConfirmationBtn>

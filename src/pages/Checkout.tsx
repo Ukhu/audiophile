@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { Redirect } from "react-router";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+
+import { CartContext } from "../contexts/CartContext";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -110,7 +113,10 @@ const RadioInputName = styled.div`
 `;
 
 const Checkout = () => {
+  const { cartItems } = useContext(CartContext);
   const [showConfirmation, setShowConfirmation] = React.useState(false);
+
+  if (cartItems.length === 0) return <Redirect to="/" />;
 
   return (
     <StyledCheckout>
@@ -150,10 +156,9 @@ const Checkout = () => {
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
-            // setShowConfirmation(true);
-          }, 400);
+            setShowConfirmation(true);
+          }, 500);
         }}
       >
         <CheckoutFormWrapper>

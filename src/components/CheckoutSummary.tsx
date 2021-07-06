@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 
 import { CartContext } from "../contexts/CartContext";
+import { getCartTotal } from "../utils/helpers";
 
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
@@ -62,8 +63,15 @@ const CheckoutSummaryBtn = styled(StyledButton)`
   width: 100%;
 `;
 
+const SHIPPING_FEE = 50;
+
 const CheckoutSummary = () => {
   const { cartItems } = useContext(CartContext);
+
+  const total = getCartTotal(cartItems);
+  const vat = total * 0.2;
+  const grandTotal = total + vat + SHIPPING_FEE;
+
   return (
     <StyledCheckoutSummary>
       <CheckoutSummaryHeader>
@@ -76,7 +84,7 @@ const CheckoutSummary = () => {
       </div>
       <CartSummary>
         <CartTotal>Total</CartTotal>
-        <CartPriceTotal>$5,396</CartPriceTotal>
+        <CartPriceTotal>${total.toLocaleString()}</CartPriceTotal>
       </CartSummary>
       <CartSummary>
         <CartTotal>Shipping</CartTotal>
@@ -84,11 +92,11 @@ const CheckoutSummary = () => {
       </CartSummary>
       <CartSummary>
         <CartTotal>VAT (included)</CartTotal>
-        <CartPriceTotal>$1,079</CartPriceTotal>
+        <CartPriceTotal>${vat.toLocaleString()}</CartPriceTotal>
       </CartSummary>
       <SummaryGrandTotal>
         <CartTotal>Grand Total</CartTotal>
-        <CartPriceTotal>$5,446</CartPriceTotal>
+        <CartPriceTotal>${grandTotal.toLocaleString()}</CartPriceTotal>
       </SummaryGrandTotal>
       <CheckoutSummaryBtn variant="filled" type="submit">
         Continue & Pay

@@ -5,8 +5,6 @@ import { ICartItemProps } from "../types/cart";
 
 import { CartContext } from "../contexts/CartContext";
 
-import MarkOneImg from "../assets/img/image-xx99-mark-one-headphones.jpg";
-
 import QuantityInput from "./QuantityInput";
 
 const StyledCartItem = styled.div<{ small?: boolean }>`
@@ -66,7 +64,7 @@ const CartItem = ({ item, summary, small }: ICartItemProps) => {
   return (
     <StyledCartItem small={small}>
       <ItemDetail>
-        <ItemImage src={MarkOneImg} alt="Cart item" small={small} />
+        <ItemImage src={product.image.desktop} alt="Cart item" small={small} />
         <div>
           <ItemText>{name}</ItemText>
           <ItemText>${price.toLocaleString()}</ItemText>

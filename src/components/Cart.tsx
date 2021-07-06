@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { ICartProps } from "../types/cart";
+import { getCartTotal } from "../utils/helpers";
 
 import { CartContext } from "../contexts/CartContext";
 
@@ -77,25 +78,37 @@ const StyledLink = styled(Link)`
 
 const Cart = ({ hideCart }: ICartProps) => {
   const { cartItems, removeFromCart } = useContext(CartContext);
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      hideCart();
+    }
+  }, [cartItems.length, hideCart]);
+
   return (
     <Modal onClose={hideCart}>
       <StyledCart>
         <CartHeader>
           <CartTitle>Cart (3)</CartTitle>
-          <CartClearBtn onClick={() => removeFromCart()}>
-            Remove all
-          </CartClearBtn>
+          {cartItems.length > 0 && (
+            <CartClearBtn onClick={() => removeFromCart()}>
+              Remove all
+            </CartClearBtn>
+          )}
         </CartHeader>
         <div>
           {cartItems.map((item) => (
             <CartItem key={item.product.slug} item={item} />
           ))}
         </div>
-        <CartSummary>
-          <CartTotal>Total</CartTotal>
-          <CartPriceTotal>$5,396</CartPriceTotal>
-        </CartSummary>
-
+        {cartItems.length > 0 && (
+          <CartSummary>
+            <CartTotal>Total</CartTotal>
+            <CartPriceTotal>
+              ${getCartTotal(cartItems).toLocaleString()}
+            </CartPriceTotal>
+          </CartSummary>
+        )}
         <StyledLink to="/checkout">
           <CartBtn variant="filled">Checkout</CartBtn>
         </StyledLink>
