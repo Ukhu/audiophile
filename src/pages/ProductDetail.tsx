@@ -2,10 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-import MarkOneImg from "../assets/img/image-xx99-mark-one-headphones.jpg";
-import XXFiveNineImg from "../assets/img/image-xx59-headphones.jpg";
-import ZXNineImg from "../assets/img/image-zx9-speaker.jpg";
-
 import useProduct from "../hooks/useProduct";
 
 import { IProduct, IProductDetailPathParams } from "../types/product";
@@ -65,14 +61,14 @@ const ProductDetail = () => {
       <Button.Back />
       {product && <ProductCard product={product as IProduct} addToCart />}
 
-      <ProductInfo />
-      <ProductGallery />
+      <ProductInfo features={product?.features} includes={product?.includes} />
+      <ProductGallery gallery={product?.gallery} />
       <SimilarProductsGroup>
         <SimilarProductsGroupTitle>You may also like</SimilarProductsGroupTitle>
         <div>
-          <SimilarProduct name="X99 Mark I" img={MarkOneImg} />
-          <SimilarProduct name="XX59" img={XXFiveNineImg} />
-          <SimilarProduct name="ZX9 Speaker" img={ZXNineImg} />
+          {product?.others.map((similar) => (
+            <SimilarProduct name={similar.name} img={similar.image.desktop} />
+          ))}
         </div>
       </SimilarProductsGroup>
       <CategoryGroup />

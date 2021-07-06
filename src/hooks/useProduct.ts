@@ -24,7 +24,9 @@ const useProduct = (productSlug: string) => {
       .get()
       .then((snap) => {
         const products: IProduct[] = [];
-        snap.forEach((doc) => products.push({ ...doc.data() }));
+        snap.forEach((doc) => {
+          products.push(doc.data());
+        });
         setProduct(products[0]);
       });
   }, [productSlug]);

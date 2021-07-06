@@ -1,6 +1,9 @@
-import firebase from "firebase";
+interface IPart {
+  item: string;
+  quantity: number;
+}
 
-export interface IProduct extends firebase.firestore.DocumentData {
+export interface IProduct {
   name: string;
   slug: string;
   category: string;
@@ -11,6 +14,19 @@ export interface IProduct extends firebase.firestore.DocumentData {
     desktop: string;
   };
   price: number;
+  includes: IPart[];
+  gallery: {
+    first: {
+      desktop: string;
+    };
+    second: {
+      desktop: string;
+    };
+    third: {
+      desktop: string;
+    };
+  };
+  others: Pick<IProduct, "slug" | "name" | "image">[];
 }
 
 export interface IProductCardProps {
@@ -25,4 +41,23 @@ export interface IProductDetailPathParams {
 export interface ISimilarProductProps {
   name: string;
   img: string;
+}
+
+export interface IProductInfoProps {
+  features?: string;
+  includes?: IPart[];
+}
+
+export interface IProductGallery {
+  gallery?: {
+    first: {
+      desktop: string;
+    };
+    second: {
+      desktop: string;
+    };
+    third: {
+      desktop: string;
+    };
+  };
 }
