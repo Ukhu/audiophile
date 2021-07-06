@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import useProduct from "../hooks/useProduct";
 
-import { IProduct, IProductDetailPathParams } from "../types/product";
+import { IProductDetailPathParams } from "../types/product";
 
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
@@ -59,7 +59,7 @@ const ProductDetail = () => {
     <div>
       <Header variant="filled" />
       <Button.Back />
-      {product && <ProductCard product={product as IProduct} addToCart />}
+      {product && <ProductCard product={product} cartBtn />}
 
       <ProductInfo features={product?.features} includes={product?.includes} />
       <ProductGallery gallery={product?.gallery} />

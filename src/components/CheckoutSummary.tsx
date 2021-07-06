@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+
+import { CartContext } from "../contexts/CartContext";
 
 import { ICheckoutSummaryProps } from "../types/common";
 
@@ -63,15 +65,16 @@ const CheckoutSummaryBtn = styled(StyledButton)`
 `;
 
 const CheckoutSummary = ({ showConfirmation }: ICheckoutSummaryProps) => {
+  const { cartItems } = useContext(CartContext);
   return (
     <StyledCheckoutSummary>
       <CheckoutSummaryHeader>
         <CheckoutSummaryTitle>Summary</CheckoutSummaryTitle>
       </CheckoutSummaryHeader>
       <div>
-        <CartItem summary />
-        <CartItem summary />
-        <CartItem summary />
+        {cartItems.map((item) => (
+          <CartItem key={item.product.slug} summary item={item} />
+        ))}
       </div>
       <CartSummary>
         <CartTotal>Total</CartTotal>

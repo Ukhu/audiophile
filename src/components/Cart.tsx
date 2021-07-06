@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { ICartProps } from "../types/cart";
+
+import { CartContext } from "../contexts/CartContext";
 
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
@@ -45,7 +47,7 @@ const CartClearBtn = styled.button`
   font: ${({ theme }) => theme.typography.body};
   border: none;
   background: transparent;
-  cursor: none;
+  cursor: pointer;
   text-decoration: underline;
   color: ${({ theme }) => theme.colors.neutral.black};
   opacity: 0.5;
@@ -74,17 +76,20 @@ const StyledLink = styled(Link)`
 `;
 
 const Cart = ({ hideCart }: ICartProps) => {
+  const { cartItems, removeFromCart } = useContext(CartContext);
   return (
     <Modal onClose={hideCart}>
       <StyledCart>
         <CartHeader>
           <CartTitle>Cart (3)</CartTitle>
-          <CartClearBtn>Remove all</CartClearBtn>
+          <CartClearBtn onClick={() => removeFromCart()}>
+            Remove all
+          </CartClearBtn>
         </CartHeader>
         <div>
-          <CartItem />
-          <CartItem />
-          <CartItem />
+          {cartItems.map((item) => (
+            <CartItem key={item.product.slug} item={item} />
+          ))}
         </div>
         <CartSummary>
           <CartTotal>Total</CartTotal>

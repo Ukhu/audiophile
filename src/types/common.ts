@@ -6,6 +6,8 @@ export interface ITextInputProps {
 
 export interface IQuantityInput {
   small?: boolean;
+  quantity: number;
+  onChange: (quantity: number) => void;
 }
 
 export interface IOrderConfirmationProps {
@@ -39,4 +41,5 @@ export interface IButtonProps {
   text: string;
   variant: "filled" | "outline" | "ghost";
   color?: string;
+  onClick?: () => void;
 }

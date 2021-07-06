@@ -31,7 +31,7 @@ export interface IProduct {
 
 export interface IProductCardProps {
   product: IProduct;
-  addToCart?: boolean;
+  cartBtn?: boolean;
 }
 
 export interface IProductDetailPathParams {

@@ -88,9 +88,9 @@ const StyledBackBtn = styled.button`
   }
 `;
 
-const Button = ({ text, variant, color }: IButtonProps) => {
+const Button = ({ text, variant, color, onClick }: IButtonProps) => {
   return (
-    <StyledButton variant={variant} color={color}>
+    <StyledButton variant={variant} color={color} onClick={onClick}>
       <span>{text}</span>
       {variant === "ghost" && <img src={ArrowRightIcon} alt="Right caret" />}
     </StyledButton>

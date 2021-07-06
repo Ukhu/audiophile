@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { IProductCardProps } from "../types/product";
+import { CartContext } from "../contexts/CartContext";
 
 import Button from "./Button";
 import QuantityInput from "./QuantityInput";
 
-const StyledProductCard = styled.article<{ addToCart?: boolean }>`
+const StyledProductCard = styled.article<{ cartBtn?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,8 +24,8 @@ const StyledProductCard = styled.article<{ addToCart?: boolean }>`
     margin-bottom: 7.5rem;
   }
 
-  ${({ addToCart, theme }) =>
-    addToCart &&
+  ${({ cartBtn, theme }) =>
+    cartBtn &&
     css`
       ${theme.screens.tablet} {
         flex-direction: row;
@@ -47,20 +48,20 @@ const StyledProductCard = styled.article<{ addToCart?: boolean }>`
   }
 `;
 
-const ProductCardContent = styled.section<{ addToCart?: boolean }>`
+const ProductCardContent = styled.section<{ cartBtn?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 
-  ${({ addToCart }) => addToCart && "align-items: flex-start;"}
+  ${({ cartBtn }) => cartBtn && "align-items: flex-start;"}
 
   ${({ theme }) => theme.screens.tablet} {
     width: 35.75rem;
   }
 
-  ${({ addToCart, theme }) =>
-    addToCart &&
+  ${({ cartBtn, theme }) =>
+    cartBtn &&
     css`
       ${theme.screens.tablet} {
         width: 21.25rem;
@@ -73,7 +74,7 @@ const ProductCardContent = styled.section<{ addToCart?: boolean }>`
   }
 `;
 
-const ProductName = styled.h2<{ addToCart?: boolean }>`
+const ProductName = styled.h2<{ cartBtn?: boolean }>`
   font: ${({ theme }) => theme.typography.h2};
   letter-spacing: 1.5px;
   font-weight: 700;
@@ -82,21 +83,21 @@ const ProductName = styled.h2<{ addToCart?: boolean }>`
   margin-bottom: 2rem;
   text-align: center;
 
-  ${({ addToCart }) => addToCart && "text-align: left;"}
+  ${({ cartBtn }) => cartBtn && "text-align: left;"}
 
   ${({ theme }) => theme.screens.laptop} {
     text-align: left;
   }
 `;
 
-const ProductDescription = styled.p<{ addToCart?: boolean }>`
+const ProductDescription = styled.p<{ cartBtn?: boolean }>`
   font: ${({ theme }) => theme.typography.body};
   margin: 0;
   margin-bottom: 1.5rem;
   opacity: 0.5;
   text-align: center;
 
-  ${({ addToCart }) => addToCart && "text-align: left;"}
+  ${({ cartBtn }) => cartBtn && "text-align: left;"}
 
   ${({ theme }) => theme.screens.laptop} {
     margin-bottom: 2.5rem;
@@ -104,20 +105,20 @@ const ProductDescription = styled.p<{ addToCart?: boolean }>`
   }
 `;
 
-const ProductButtons = styled.div<{ addToCart?: boolean }>`
+const ProductButtons = styled.div<{ cartBtn?: boolean }>`
   display: flex;
   justify-content: center;
   width: 18.5rem;
 
   ${({ theme }) => theme.screens.laptop} {
     justify-content: flex-start;
-    ${({ addToCart }) => addToCart && "justify-content: space-between;"}
+    ${({ cartBtn }) => cartBtn && "justify-content: space-between;"}
   }
 
-  ${({ addToCart }) => addToCart && "justify-content: space-between;"}
+  ${({ cartBtn }) => cartBtn && "justify-content: space-between;"}
 `;
 
-const ProductImageHolder = styled.div<{ addToCart?: boolean }>`
+const ProductImageHolder = styled.div<{ cartBtn?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,8 +128,8 @@ const ProductImageHolder = styled.div<{ addToCart?: boolean }>`
   height: 22rem;
   background-color: #f1f1f1;
 
-  ${({ addToCart, theme }) =>
-    addToCart &&
+  ${({ cartBtn, theme }) =>
+    cartBtn &&
     css`
       ${theme.screens.tablet} {
         width: 17.5625rem;
@@ -173,25 +174,36 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const ProductCard = ({ product, addToCart }: IProductCardProps) => {
+const ProductCard = ({ product, cartBtn }: IProductCardProps) => {
+  const { addToCart } = useContext(CartContext);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleChange = (quantity: number) => {
+    setQuantity(quantity);
+  };
+
   const { name, description, image, price } = product;
   return (
-    <StyledProductCard addToCart={addToCart}>
-      <ProductImageHolder addToCart={addToCart}>
+    <StyledProductCard cartBtn={cartBtn}>
+      <ProductImageHolder cartBtn={cartBtn}>
         <ProductImage src={image.desktop} alt="Product" />
       </ProductImageHolder>
 
-      <ProductCardContent addToCart={addToCart}>
+      <ProductCardContent cartBtn={cartBtn}>
         {product.new && <NewProductIndicator>New Product</NewProductIndicator>}
-        <ProductName addToCart={addToCart}>{name}</ProductName>
-        <ProductDescription addToCart={addToCart}>
-          {description}
-        </ProductDescription>
-        {addToCart && <ProductPrice>${price.toLocaleString()}</ProductPrice>}
-        <ProductButtons addToCart={addToCart}>
-          {addToCart && <QuantityInput />}
-          {addToCart ? (
-            <Button text="Add to Cart" variant="filled" />
+        <ProductName cartBtn={cartBtn}>{name}</ProductName>
+        <ProductDescription cartBtn={cartBtn}>{description}</ProductDescription>
+        {cartBtn && <ProductPrice>${price.toLocaleString()}</ProductPrice>}
+        <ProductButtons cartBtn={cartBtn}>
+          {cartBtn && (
+            <QuantityInput quantity={quantity} onChange={handleChange} />
+          )}
+          {cartBtn ? (
+            <Button
+              text="Add to Cart"
+              variant="filled"
+              onClick={() => addToCart({ product, quantity })}
+            />
           ) : (
             <StyledLink
               to={`/product/${name.split(" ").join("-").toLowerCase()}`}

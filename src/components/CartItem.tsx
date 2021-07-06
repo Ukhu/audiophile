@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
-import { ICartItem } from "../types/cart";
+import { ICartItemProps } from "../types/cart";
+
+import { CartContext } from "../contexts/CartContext";
 
 import MarkOneImg from "../assets/img/image-xx99-mark-one-headphones.jpg";
 
@@ -47,17 +49,34 @@ const ItemQuantity = styled(ItemText)`
   padding-top: 0.5rem;
 `;
 
-const CartItem = ({ summary, small }: ICartItem) => {
+const CartItem = ({ item, summary, small }: ICartItemProps) => {
+  const { removeFromCart, updateItem } = useContext(CartContext);
+
+  const { product, quantity } = item;
+  const { name, price } = product;
+
+  const handleChange = (quantity: number) => {
+    if (!quantity) {
+      removeFromCart(product.slug);
+    } else {
+      updateItem(product.slug, quantity);
+    }
+  };
+
   return (
     <StyledCartItem small={small}>
       <ItemDetail>
         <ItemImage src={MarkOneImg} alt="Cart item" small={small} />
         <div>
-          <ItemText>XX99 MK II</ItemText>
-          <ItemText>$ 2,999</ItemText>
+          <ItemText>{name}</ItemText>
+          <ItemText>${price.toLocaleString()}</ItemText>
         </div>
       </ItemDetail>
-      {summary ? <ItemQuantity>1x</ItemQuantity> : <QuantityInput small />}
+      {summary ? (
+        <ItemQuantity>{quantity}x</ItemQuantity>
+      ) : (
+        <QuantityInput small quantity={quantity} onChange={handleChange} />
+      )}
     </StyledCartItem>
   );
 };

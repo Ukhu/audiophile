@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 import { IOrderConfirmationProps } from "../types/common";
+
+import { CartContext } from "../contexts/CartContext";
 
 import { StyledButton } from "./Button";
 import Modal from "./Modal";
@@ -145,6 +147,8 @@ const StyledLink = styled(Link)`
 `;
 
 const OrderConfirmation = ({ hide }: IOrderConfirmationProps) => {
+  const { cartItems } = useContext(CartContext);
+
   return (
     <Modal onClose={hide}>
       <StyledOrderConfirmation>
@@ -159,7 +163,7 @@ const OrderConfirmation = ({ hide }: IOrderConfirmationProps) => {
         </OrderConfirmationMessage>
         <OrderSummary>
           <CartItems>
-            <CartItem summary small />
+            <CartItem summary small item={cartItems[0]} />
             <ExtraItems>and 2 other item(s)</ExtraItems>
           </CartItems>
           <GrandTotal>

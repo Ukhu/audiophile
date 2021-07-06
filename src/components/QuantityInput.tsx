@@ -41,14 +41,34 @@ const ProductInput = styled.input`
   text-align: center;
   background: transparent;
   border: none;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:disabled {
+    color: #000000;
+  }
 `;
 
-const QuantityInput = ({ small }: IQuantityInput) => {
+const QuantityInput = ({ small, quantity, onChange }: IQuantityInput) => {
+  const updateQuantity = (value: number) => {
+    if (value > 0) {
+      onChange(value);
+    }
+  };
+
   return (
     <ProductQty small={small}>
-      <ProductControl>-</ProductControl>
-      <ProductInput type="text" value={1} />
-      <ProductControl>+</ProductControl>
+      <ProductControl onClick={() => updateQuantity(quantity - 1)}>
+        -
+      </ProductControl>
+      <ProductInput type="number" value={quantity} disabled />
+      <ProductControl onClick={() => updateQuantity(quantity + 1)}>
+        +
+      </ProductControl>
     </ProductQty>
   );
 };
