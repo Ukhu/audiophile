@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AudiophileTheme from "./theme/AudiophileTheme";
 
+import ScrollToTop from "./components/ScrollToTop";
+
 import Landing from "./pages/Landing";
 import Category from "./pages/Category";
 import Checkout from "./pages/Checkout";
@@ -13,6 +15,7 @@ function App() {
   return (
     <ThemeProvider theme={AudiophileTheme}>
       <Router>
+        <ScrollToTop />
         <Switch>
           <Route exact path="/category/:categoryName">
             <Category />
