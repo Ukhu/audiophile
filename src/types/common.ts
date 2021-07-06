@@ -1,5 +1,7 @@
 export interface ITextInputProps {
+  label: string;
   name: string;
+  type: string;
   placeholder: string;
   full?: boolean;
 }
@@ -27,14 +29,11 @@ export interface IHeaderProps {
   variant?: "filled" | "transparent";
 }
 
-export interface ICheckoutSummaryProps {
-  showConfirmation: () => void;
-}
-
-export interface ICheckBoxProps {
+export interface IRadioInputProps {
   name: string;
   label: string;
   id: string;
+  value: string;
 }
 
 export interface IButtonProps {

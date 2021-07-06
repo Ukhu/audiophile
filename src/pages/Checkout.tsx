@@ -1,19 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import Checkbox from "../components/Checkbox";
 import CheckoutSummary from "../components/CheckoutSummary";
 import OrderConfirmation from "../components/OrderConfirmation";
+import RadioInput from "../components/RadioInput";
 
 const StyledCheckout = styled.div`
   background-color: #f2f2f2;
 `;
 
-const CheckoutFormWrapper = styled.div`
+const CheckoutFormWrapper = styled(Form)`
   display: flex;
   flex-direction: column;
   margin: 0 1.5rem;
@@ -117,55 +119,137 @@ const Checkout = () => {
       )}
       <Header variant="filled" />
       <Button.Back />
-      <CheckoutFormWrapper>
-        <CheckoutForm>
-          <CheckoutTitle>Checkout</CheckoutTitle>
-          <CheckoutSection>
-            <CheckoutSectionTitle>Billing Details</CheckoutSectionTitle>
-            <CheckoutSectionRow>
-              <TextInput name="Name" placeholder="Alexei" />
-              <TextInput name="Email Address" placeholder="alexei@gmail.com" />
-              <TextInput name="Phone Number" placeholder="+1 202-555-0136" />
-            </CheckoutSectionRow>
-          </CheckoutSection>
-          <CheckoutSection>
-            <CheckoutSectionTitle>Shipping Info</CheckoutSectionTitle>
-            <CheckoutSectionRow>
-              <TextInput
-                name="Address"
-                placeholder="1137 Williams Avenue"
-                full
-              />
-              <TextInput name="Zip Code" placeholder="1001" />
-              <TextInput name="City" placeholder="New York" />
-              <TextInput name="Country" placeholder="United States" />
-            </CheckoutSectionRow>
-          </CheckoutSection>
-          <CheckoutSection>
-            <CheckoutSectionTitle>Payment Details</CheckoutSectionTitle>
-            <CheckoutSectionRow>
-              <RadioInputWrapper>
-                <RadioInputName>Payment method</RadioInputName>
-                <div>
-                  <Checkbox
-                    name="payment-method"
-                    label="e-Money"
-                    id="e-money"
-                  />
-                  <Checkbox
-                    name="payment-method"
-                    label="Cash on Delivery"
-                    id="cash"
-                  />
-                </div>
-              </RadioInputWrapper>
-              <TextInput name="e-Money Number" placeholder="238521993" />
-              <TextInput name="e-Money PIN" placeholder="6891" />
-            </CheckoutSectionRow>
-          </CheckoutSection>
-        </CheckoutForm>
-        <CheckoutSummary showConfirmation={() => setShowConfirmation(true)} />
-      </CheckoutFormWrapper>
+
+      <Formik
+        initialValues={{
+          name: "",
+          email: "",
+          phoneNumber: "",
+          address: "",
+          zipCode: "",
+          city: "",
+          country: "",
+          paymentMethod: "cash",
+          eMoneyNumber: "",
+          eMoneyPin: "",
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string()
+            .matches(/[a-zA-Z]/, "Only alphabets allowed")
+            .required("Required"),
+          email: Yup.string()
+            .email("Invalid email address")
+            .required("Required"),
+          phoneNumber: Yup.string().matches(/[0-9]/, "Only numbers allowed"),
+          address: Yup.string().required("Required"),
+          zipCode: Yup.string().matches(/[0-9]/, "Only numbers allowed"),
+          city: Yup.string().required("Required"),
+          country: Yup.string().required("Required"),
+          eMoneyNumber: Yup.string().matches(/[0-9]/, "Only numbers allowed"),
+          eMoneyPin: Yup.string().matches(/[0-9]/, "Only numbers allowed"),
+        })}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+            // setShowConfirmation(true);
+          }, 400);
+        }}
+      >
+        <CheckoutFormWrapper>
+          <CheckoutForm>
+            <CheckoutTitle>Checkout</CheckoutTitle>
+            <CheckoutSection>
+              <CheckoutSectionTitle>Billing Details</CheckoutSectionTitle>
+              <CheckoutSectionRow>
+                <TextInput
+                  type="text"
+                  label="Name"
+                  name="name"
+                  placeholder="Alexei"
+                />
+                <TextInput
+                  type="email"
+                  label="Email Address"
+                  name="email"
+                  placeholder="alexei@gmail.com"
+                />
+                <TextInput
+                  type="text"
+                  label="Phone Number"
+                  name="phoneNumber"
+                  placeholder="+1 202-555-0136"
+                />
+              </CheckoutSectionRow>
+            </CheckoutSection>
+            <CheckoutSection>
+              <CheckoutSectionTitle>Shipping Info</CheckoutSectionTitle>
+              <CheckoutSectionRow>
+                <TextInput
+                  type="text"
+                  label="Address"
+                  name="address"
+                  placeholder="1137 Williams Avenue"
+                  full
+                />
+                <TextInput
+                  type="text"
+                  label="Zip Code"
+                  name="zipCode"
+                  placeholder="1001"
+                />
+                <TextInput
+                  type="text"
+                  label="City"
+                  name="city"
+                  placeholder="New York"
+                />
+                <TextInput
+                  type="text"
+                  label="Country"
+                  name="country"
+                  placeholder="United States"
+                />
+              </CheckoutSectionRow>
+            </CheckoutSection>
+            <CheckoutSection>
+              <CheckoutSectionTitle>Payment Details</CheckoutSectionTitle>
+              <CheckoutSectionRow>
+                <RadioInputWrapper>
+                  <RadioInputName>Payment method</RadioInputName>
+                  <div>
+                    <RadioInput
+                      name="paymentMethod"
+                      label="e-Money"
+                      id="eMoney"
+                      value="eMoney"
+                    />
+                    <RadioInput
+                      name="paymentMethod"
+                      label="Cash on Delivery"
+                      id="cash"
+                      value="cash"
+                    />
+                  </div>
+                </RadioInputWrapper>
+                <TextInput
+                  type="number"
+                  label="e-Money Number"
+                  name="eMoneyNumber"
+                  placeholder="238521993"
+                />
+                <TextInput
+                  type="number"
+                  label="e-Money PIN"
+                  name="eMoneyPin"
+                  placeholder="6891"
+                />
+              </CheckoutSectionRow>
+            </CheckoutSection>
+          </CheckoutForm>
+          <CheckoutSummary />
+        </CheckoutFormWrapper>
+      </Formik>
       <Footer />
     </StyledCheckout>
   );

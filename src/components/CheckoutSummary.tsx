@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import { CartContext } from "../contexts/CartContext";
 
-import { ICheckoutSummaryProps } from "../types/common";
-
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
 
@@ -64,7 +62,7 @@ const CheckoutSummaryBtn = styled(StyledButton)`
   width: 100%;
 `;
 
-const CheckoutSummary = ({ showConfirmation }: ICheckoutSummaryProps) => {
+const CheckoutSummary = () => {
   const { cartItems } = useContext(CartContext);
   return (
     <StyledCheckoutSummary>
@@ -92,7 +90,7 @@ const CheckoutSummary = ({ showConfirmation }: ICheckoutSummaryProps) => {
         <CartTotal>Grand Total</CartTotal>
         <CartPriceTotal>$5,446</CartPriceTotal>
       </SummaryGrandTotal>
-      <CheckoutSummaryBtn variant="filled" onClick={showConfirmation}>
+      <CheckoutSummaryBtn variant="filled" type="submit">
         Continue & Pay
       </CheckoutSummaryBtn>
     </StyledCheckoutSummary>

@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { useField } from "formik";
 
-import { ICheckBoxProps } from "../types/common";
+import { IRadioInputProps } from "../types/common";
 
-const StyledCheckbox = styled.div`
+const StyledRadioInput = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -24,7 +25,7 @@ const StyledCheckbox = styled.div`
   }
 `;
 
-const CheckInput = styled.input`
+const RadioBtn = styled.input`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,18 +47,24 @@ const CheckInput = styled.input`
   }
 `;
 
-const CheckboxLabel = styled.label`
+const RadioInputLabel = styled.label`
   font: ${({ theme }) => theme.typography.body};
   font-weight: 700;
 `;
 
-const Checkbox = ({ name, label, id }: ICheckBoxProps) => {
+const RadioInput = ({ label, ...props }: IRadioInputProps) => {
+  const [field] = useField(props);
   return (
-    <StyledCheckbox>
-      <CheckInput type="radio" name={name} id={id} />
-      <CheckboxLabel htmlFor={id}>{label}</CheckboxLabel>
-    </StyledCheckbox>
+    <StyledRadioInput>
+      <RadioBtn
+        type="radio"
+        {...field}
+        {...props}
+        checked={field.value === props.value}
+      />
+      <RadioInputLabel htmlFor={props.id}>{label}</RadioInputLabel>
+    </StyledRadioInput>
   );
 };
 
-export default Checkbox;
+export default RadioInput;
