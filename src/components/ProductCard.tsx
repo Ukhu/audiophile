@@ -205,9 +205,7 @@ const ProductCard = ({ product, cartBtn }: IProductCardProps) => {
               onClick={() => addToCart({ product, quantity })}
             />
           ) : (
-            <StyledLink
-              to={`/product/${name.split(" ").join("-").toLowerCase()}`}
-            >
+            <StyledLink to={`/product/${product.slug}`}>
               <Button variant="filled" text="See Product" />
             </StyledLink>
           )}

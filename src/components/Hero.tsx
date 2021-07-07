@@ -15,14 +15,12 @@ const StyledHero = styled.section`
   margin-top: -5.5625rem;
 
   ${({ theme }) => theme.screens.tablet} {
-    background-position-x: -400px;
+    background-position: center;
     margin-top: -6rem;
   }
 
   ${({ theme }) => theme.screens.laptop} {
-    background-position: center;
     height: 45.5625rem;
-    margin-top: -6rem;
   }
 `;
 
@@ -115,7 +113,7 @@ const Hero = () => {
             made for the passionate music enthusiast.
           </HeroBodyText>
 
-          <StyledLink to="/product/xx99-mark-ii-headphones">
+          <StyledLink to="/product/xx99-mark-two-headphones">
             <Button variant="filled" text="See Product" />
           </StyledLink>
         </HeroArticle>

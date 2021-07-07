@@ -67,7 +67,11 @@ const ProductDetail = () => {
         <SimilarProductsGroupTitle>You may also like</SimilarProductsGroupTitle>
         <div>
           {product?.others.map((similar) => (
-            <SimilarProduct name={similar.name} img={similar.image.desktop} />
+            <SimilarProduct
+              name={similar.name}
+              img={similar.image.desktop}
+              slug={similar.slug}
+            />
           ))}
         </div>
       </SimilarProductsGroup>

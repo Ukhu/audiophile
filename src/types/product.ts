@@ -41,6 +41,7 @@ export interface IProductDetailPathParams {
 export interface ISimilarProductProps {
   name: string;
   img: string;
+  slug: string;
 }
 
 export interface IProductInfoProps {

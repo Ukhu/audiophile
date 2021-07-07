@@ -58,14 +58,14 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const SimilarProduct = ({ name, img }: ISimilarProductProps) => {
+const SimilarProduct = ({ name, img, slug }: ISimilarProductProps) => {
   return (
     <StyledSimilarProduct>
       <ProductImageWrapper>
         <ProductImage src={img} />
       </ProductImageWrapper>
       <ProductName>{name}</ProductName>
-      <StyledLink to={`/product/${name.split(" ").join("-").toLowerCase()}`}>
+      <StyledLink to={`/product/${slug}`}>
         <Button variant="filled" text="See Product" />
       </StyledLink>
     </StyledSimilarProduct>
