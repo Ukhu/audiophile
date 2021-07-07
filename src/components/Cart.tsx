@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
+import { ICartProps } from "../types/cart";
+import { getCartTotal } from "../utils/helpers";
+
+import { CartContext } from "../contexts/CartContext";
 
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
@@ -43,7 +48,7 @@ const CartClearBtn = styled.button`
   font: ${({ theme }) => theme.typography.body};
   border: none;
   background: transparent;
-  cursor: none;
+  cursor: pointer;
   text-decoration: underline;
   color: ${({ theme }) => theme.colors.neutral.black};
   opacity: 0.5;
@@ -71,28 +76,39 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-interface ICartProps {
-  hideCart: () => void;
-}
-
 const Cart = ({ hideCart }: ICartProps) => {
+  const { cartItems, removeFromCart } = useContext(CartContext);
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      hideCart();
+    }
+  }, [cartItems.length, hideCart]);
+
   return (
     <Modal onClose={hideCart}>
       <StyledCart>
         <CartHeader>
           <CartTitle>Cart (3)</CartTitle>
-          <CartClearBtn>Remove all</CartClearBtn>
+          {cartItems.length > 0 && (
+            <CartClearBtn onClick={() => removeFromCart()}>
+              Remove all
+            </CartClearBtn>
+          )}
         </CartHeader>
         <div>
-          <CartItem />
-          <CartItem />
-          <CartItem />
+          {cartItems.map((item) => (
+            <CartItem key={item.product.slug} item={item} />
+          ))}
         </div>
-        <CartSummary>
-          <CartTotal>Total</CartTotal>
-          <CartPriceTotal>$5,396</CartPriceTotal>
-        </CartSummary>
-
+        {cartItems.length > 0 && (
+          <CartSummary>
+            <CartTotal>Total</CartTotal>
+            <CartPriceTotal>
+              ${getCartTotal(cartItems).toLocaleString()}
+            </CartPriceTotal>
+          </CartSummary>
+        )}
         <StyledLink to="/checkout">
           <CartBtn variant="filled">Checkout</CartBtn>
         </StyledLink>

@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+
+import { CartContext } from "../contexts/CartContext";
+import { getCartTotal } from "../utils/helpers";
 
 import { StyledButton } from "./Button";
 import CartItem from "./CartItem";
@@ -60,24 +63,28 @@ const CheckoutSummaryBtn = styled(StyledButton)`
   width: 100%;
 `;
 
-interface ICheckoutSummaryProps {
-  showConfirmation: () => void;
-}
+const SHIPPING_FEE = 50;
 
-const CheckoutSummary = ({ showConfirmation }: ICheckoutSummaryProps) => {
+const CheckoutSummary = () => {
+  const { cartItems } = useContext(CartContext);
+
+  const total = getCartTotal(cartItems);
+  const vat = total * 0.2;
+  const grandTotal = total + vat + SHIPPING_FEE;
+
   return (
     <StyledCheckoutSummary>
       <CheckoutSummaryHeader>
         <CheckoutSummaryTitle>Summary</CheckoutSummaryTitle>
       </CheckoutSummaryHeader>
       <div>
-        <CartItem summary />
-        <CartItem summary />
-        <CartItem summary />
+        {cartItems.map((item) => (
+          <CartItem key={item.product.slug} summary item={item} />
+        ))}
       </div>
       <CartSummary>
         <CartTotal>Total</CartTotal>
-        <CartPriceTotal>$5,396</CartPriceTotal>
+        <CartPriceTotal>${total.toLocaleString()}</CartPriceTotal>
       </CartSummary>
       <CartSummary>
         <CartTotal>Shipping</CartTotal>
@@ -85,13 +92,13 @@ const CheckoutSummary = ({ showConfirmation }: ICheckoutSummaryProps) => {
       </CartSummary>
       <CartSummary>
         <CartTotal>VAT (included)</CartTotal>
-        <CartPriceTotal>$1,079</CartPriceTotal>
+        <CartPriceTotal>${vat.toLocaleString()}</CartPriceTotal>
       </CartSummary>
       <SummaryGrandTotal>
         <CartTotal>Grand Total</CartTotal>
-        <CartPriceTotal>$5,446</CartPriceTotal>
+        <CartPriceTotal>${grandTotal.toLocaleString()}</CartPriceTotal>
       </SummaryGrandTotal>
-      <CheckoutSummaryBtn variant="filled" onClick={showConfirmation}>
+      <CheckoutSummaryBtn variant="filled" type="submit">
         Continue & Pay
       </CheckoutSummaryBtn>
     </StyledCheckoutSummary>

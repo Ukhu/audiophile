@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
-import { MOCK_PRODUCTS } from "../utils/mockData";
+import { IProduct } from "../types/product";
+import { ICategoryPathParams } from "../types/category";
+
+import useCategory from "../hooks/useCategory";
 
 import Header from "../components/Header";
 import CategoryGroup from "../components/CategoryGroup";
@@ -43,14 +47,17 @@ const CategoryProducts = styled.section`
 `;
 
 const CategoryPage = () => {
+  const { categoryName } = useParams<ICategoryPathParams>();
+  const { categoryProducts } = useCategory(categoryName);
+
   return (
     <div>
       <Header />
       <CategoryHead>
-        <CategoryName>Headphones</CategoryName>
+        <CategoryName>{categoryName.toUpperCase()}</CategoryName>
       </CategoryHead>
       <CategoryProducts>
-        {MOCK_PRODUCTS.map((product) => (
+        {categoryProducts.map((product: IProduct) => (
           <ProductCard key={product.name} product={product} />
         ))}
       </CategoryProducts>

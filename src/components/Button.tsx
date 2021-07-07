@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import { IButtonProps } from "../types/common";
+
 import ArrowRightIcon from "../assets/svg/icon-arrow-right.svg";
 
 export const StyledButton = styled.button<{ variant: string; color?: string }>`
@@ -86,15 +88,9 @@ const StyledBackBtn = styled.button`
   }
 `;
 
-interface IButtonProps {
-  text: string;
-  variant: "filled" | "outline" | "ghost";
-  color?: string;
-}
-
-const Button = ({ text, variant, color }: IButtonProps) => {
+const Button = ({ text, variant, color, onClick }: IButtonProps) => {
   return (
-    <StyledButton variant={variant} color={color}>
+    <StyledButton variant={variant} color={color} onClick={onClick}>
       <span>{text}</span>
       {variant === "ghost" && <img src={ArrowRightIcon} alt="Right caret" />}
     </StyledButton>

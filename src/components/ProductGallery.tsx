@@ -1,9 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import ProductImg1 from "../assets/img/image-gallery-1.jpg";
-import ProductImg2 from "../assets/img/image-gallery-2.jpg";
-import ProductImg3 from "../assets/img/image-gallery-3.jpg";
+import { IProductGallery } from "../types/product";
 
 const StyledProductGallery = styled.div`
   margin: 0 1.5rem;
@@ -39,43 +37,43 @@ const StyledProductGallery = styled.div`
   }
 `;
 
-const GalleryImage = styled.div<{ name: string }>`
+const GalleryImage = styled.div<{ name: string; url?: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
   border-radius: 8px;
 
-  ${({ name }) =>
+  ${({ name, url }) =>
     name === "image1" &&
     css`
-      background-image: url(${ProductImg1});
+      background-image: url(${url});
       grid-area: image1;
     `}
 
-  ${({ name }) =>
+  ${({ name, url }) =>
     name === "image2" &&
     css`
-      background-image: url(${ProductImg2});
+      background-image: url(${url});
       grid-area: image2;
     `}
 
-  ${({ name }) =>
+  ${({ name, url }) =>
     name === "image3" &&
     css`
-      background-image: url(${ProductImg3});
+      background-image: url(${url});
       grid-area: image3;
       width: 100%;
       height: 100%;
     `}
 `;
 
-const ProductGallery = () => {
+const ProductGallery = ({ gallery }: IProductGallery) => {
   return (
     <StyledProductGallery>
-      <GalleryImage name="image1" />
-      <GalleryImage name="image2" />
-      <GalleryImage name="image3" />
+      <GalleryImage name="image1" url={gallery?.first.desktop} />
+      <GalleryImage name="image2" url={gallery?.second.desktop} />
+      <GalleryImage name="image3" url={gallery?.third.desktop} />
     </StyledProductGallery>
   );
 };

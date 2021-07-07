@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { IProductInfoProps } from "../types/product";
 
 const StyledProductInfo = styled.section`
   display: flex;
@@ -92,62 +93,28 @@ const ProductPartsQuantity = styled.span`
   margin-right: 1.3125rem;
 `;
 
-const ProductInfo = () => {
+const ProductInfo = ({ features, includes }: IProductInfoProps) => {
   return (
     <StyledProductInfo>
       <ProductFeatures>
         <ProductInfoHeading>Features</ProductInfoHeading>
-        <ProductInfoBody>
-          Featuring a genuine leather head strap and premium earcups, these
-          headphones deliver superior comfort for those who like to enjoy
-          endless listening. It includes intuitive controls designed for any
-          situation. Whether you’re taking a business call or just in your own
-          personal space, the auto on/off and pause features ensure that you’ll
-          never miss a beat.
-        </ProductInfoBody>
-
-        <ProductInfoBody>
-          The advanced Active Noise Cancellation with built-in equalizer allow
-          you to experience your audio world on your terms. It lets you enjoy
-          your audio in peace, but quickly interact with your surroundings when
-          you need to. Combined with Bluetooth 5. 0 compliant connectivity and
-          17 hour battery life, the XX99 Mark II headphones gives you superior
-          sound, cutting-edge technology, and a modern design aesthetic.
-        </ProductInfoBody>
+        {features &&
+          features
+            .split("\\n\\n")
+            .map((body) => <ProductInfoBody>{body}</ProductInfoBody>)}
       </ProductFeatures>
       <ProductParts>
         <ProductInfoHeading>In the box</ProductInfoHeading>
         <ProductPartsList>
-          <ProductPartsItem>
-            <ProductInfoBody opaque>
-              <ProductPartsQuantity>1x</ProductPartsQuantity>
-              <ProductInfoBody as="span">Headphone Unit</ProductInfoBody>
-            </ProductInfoBody>
-          </ProductPartsItem>
-          <ProductPartsItem>
-            <ProductInfoBody opaque>
-              <ProductPartsQuantity>2x</ProductPartsQuantity>
-              <ProductInfoBody as="span">Replacement Earcups</ProductInfoBody>
-            </ProductInfoBody>
-          </ProductPartsItem>
-          <ProductPartsItem>
-            <ProductInfoBody opaque>
-              <ProductPartsQuantity>1x</ProductPartsQuantity>
-              <ProductInfoBody as="span">User Manual</ProductInfoBody>
-            </ProductInfoBody>
-          </ProductPartsItem>
-          <ProductPartsItem>
-            <ProductInfoBody opaque>
-              <ProductPartsQuantity>1x</ProductPartsQuantity>
-              <ProductInfoBody as="span">3.5mm 5m Audio Cable</ProductInfoBody>
-            </ProductInfoBody>
-          </ProductPartsItem>
-          <ProductPartsItem>
-            <ProductInfoBody opaque>
-              <ProductPartsQuantity>1x</ProductPartsQuantity>
-              <ProductInfoBody as="span">Travel Bag</ProductInfoBody>
-            </ProductInfoBody>
-          </ProductPartsItem>
+          {includes &&
+            includes.map((part) => (
+              <ProductPartsItem>
+                <ProductInfoBody opaque>
+                  <ProductPartsQuantity>{part.quantity}x</ProductPartsQuantity>
+                  <ProductInfoBody as="span">{part.item}</ProductInfoBody>
+                </ProductInfoBody>
+              </ProductPartsItem>
+            ))}
         </ProductPartsList>
       </ProductParts>
     </StyledProductInfo>

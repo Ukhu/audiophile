@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { ICategoryProps } from "../types/category";
+
 import Button from "./Button";
 
 import HeadphoneImg from "../assets/img/image-headphones.png";
@@ -62,10 +64,6 @@ const CategoryName = styled.h6`
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
-
-interface ICategoryProps {
-  name: string;
-}
 
 const Category = ({ name }: ICategoryProps) => {
   return (

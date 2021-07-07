@@ -1,5 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { useField } from "formik";
+
+import { ITextInputProps } from "../types/common";
 
 const StyledTextInput = styled.div<{ full?: boolean }>`
   margin-bottom: 1.5rem;
@@ -12,7 +15,7 @@ const StyledTextInput = styled.div<{ full?: boolean }>`
   }
 `;
 
-const Input = styled.input<{ full?: boolean }>`
+const Input = styled.input<{ full?: boolean; error: boolean }>`
   font: ${({ theme }) => theme.typography.body};
   font-weight: 700;
   height: 3.5rem;
@@ -20,7 +23,7 @@ const Input = styled.input<{ full?: boolean }>`
   padding: 0 1.5rem;
   border-radius: 8px;
   border: 1px solid #cfcfcf;
-  color: rgba(0, 0, 0, 0.4);
+  outline: none;
 
   ${({ theme }) => theme.screens.tablet} {
     width: 19.3125rem;
@@ -29,37 +32,48 @@ const Input = styled.input<{ full?: boolean }>`
   }
 
   &:active,
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: ${({ theme }) => theme.colors.brand.peru};
     color: ${({ theme }) => theme.colors.neutral.black};
   }
+
+  ${({ error }) =>
+    error &&
+    css`
+      border: 2px solid #cd2c2c;
+    `}
 `;
 
-const InputHeading = styled.div`
+const InputHeading = styled.div<{ error: boolean }>`
   font: ${({ theme }) => theme.typography.body};
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5625rem;
+
+  ${({ error }) => error && "color: #cd2c2c;"}
 `;
 
 const InputLabel = styled.label`
   font-weight: 700;
 `;
 
-interface ITextInputProps {
-  name: string;
-  placeholder: string;
-  full?: boolean;
-}
+const InputError = styled.div`
+  color: #cd2c2c;
+`;
 
-const TextInput = ({ name, placeholder, full }: ITextInputProps) => {
+const TextInput = ({ label, full, ...props }: ITextInputProps) => {
+  const [field, meta] = useField(props);
+
+  const errorOccurred = Boolean(meta.touched && meta.error);
+
   return (
     <StyledTextInput full={full}>
-      <InputHeading>
-        <InputLabel htmlFor={name}>{name}</InputLabel>
-        {/* <div>Wrong format</div> */}
+      <InputHeading error={errorOccurred}>
+        <InputLabel htmlFor={props.name}>{label}</InputLabel>
+        {errorOccurred && <InputError>{meta.error}</InputError>}
       </InputHeading>
-      <Input id={name} type="text" placeholder={placeholder} full={full} />
+      <Input {...field} {...props} full={full} error={errorOccurred} />
     </StyledTextInput>
   );
 };

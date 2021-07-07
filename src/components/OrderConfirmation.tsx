@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+
+import { IOrderConfirmationProps } from "../types/common";
+import { getCartTotal } from "../utils/helpers";
+
+import { CartContext } from "../contexts/CartContext";
 
 import { StyledButton } from "./Button";
 import Modal from "./Modal";
@@ -142,11 +147,11 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-interface IOrderConfirmationProps {
-  hide: () => void;
-}
-
 const OrderConfirmation = ({ hide }: IOrderConfirmationProps) => {
+  const { cartItems, removeFromCart } = useContext(CartContext);
+
+  const remainingItems = cartItems.length - 1;
+
   return (
     <Modal onClose={hide}>
       <StyledOrderConfirmation>
@@ -161,16 +166,18 @@ const OrderConfirmation = ({ hide }: IOrderConfirmationProps) => {
         </OrderConfirmationMessage>
         <OrderSummary>
           <CartItems>
-            <CartItem summary small />
-            <ExtraItems>and 2 other item(s)</ExtraItems>
+            <CartItem summary small item={cartItems[0]} />
+            {remainingItems > 0 && (
+              <ExtraItems>and {remainingItems} other item(s)</ExtraItems>
+            )}
           </CartItems>
           <GrandTotal>
             <div>Grand Total</div>
-            <div>$5,466</div>
+            <div>${getCartTotal(cartItems).toLocaleString()}</div>
           </GrandTotal>
         </OrderSummary>
 
-        <StyledLink to="/">
+        <StyledLink to="/" onClick={() => removeFromCart()}>
           <OrderConfirmationBtn variant="filled">
             Back to home
           </OrderConfirmationBtn>
