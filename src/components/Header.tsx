@@ -9,6 +9,8 @@ import { IHeaderProps } from "../types/common";
 
 import Cart from "./Cart";
 import MenuDropdown from "./MenuDropdown";
+import { useContext } from "react";
+import { CartContext } from "../contexts/CartContext";
 
 const StyledHeader = styled.header<{ variant: string }>`
   height: 5.5625rem;
@@ -80,6 +82,7 @@ const NavItem = styled.li`
 `;
 
 const Icon = styled.div<{ menu?: boolean }>`
+  position: relative;
   font: ${({ theme }) => theme.typography.h5};
   color: ${({ theme }) => theme.colors.neutral.white};
   cursor: pointer;
@@ -97,7 +100,24 @@ const Icon = styled.div<{ menu?: boolean }>`
     `}
 `;
 
+const CartItemCount = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  font: ${({ theme }) => theme.typography.body};
+  background-color: ${({ theme }) => theme.colors.neutral.white};
+  color: ${({ theme }) => theme.colors.neutral.black};
+  font-weight: bold;
+  border-radius: 50%;
+  top: -10px;
+  right: -15px;
+`;
+
 const Header = ({ variant = "transparent" }: IHeaderProps) => {
+  const { cartItems } = useContext(CartContext);
+
   const [showCart, setShowCart] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
 
@@ -132,6 +152,9 @@ const Header = ({ variant = "transparent" }: IHeaderProps) => {
           </HeaderNav>
 
           <Icon onClick={() => setShowCart(true)}>
+            {cartItems.length > 0 && (
+              <CartItemCount>{cartItems.length}</CartItemCount>
+            )}
             <IoCartOutline />
           </Icon>
         </Container>
