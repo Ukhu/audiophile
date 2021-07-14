@@ -76,6 +76,11 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+const CartItems = styled.div`
+  max-height: 20rem;
+  overflow: scroll;
+`;
+
 const Cart = ({ hideCart }: ICartProps) => {
   const { cartItems, removeFromCart } = useContext(CartContext);
 
@@ -96,11 +101,11 @@ const Cart = ({ hideCart }: ICartProps) => {
             </CartClearBtn>
           )}
         </CartHeader>
-        <div>
-          {cartItems.map((item) => (
-            <CartItem key={item.product.slug} item={item} />
+        <CartItems>
+          {cartItems.map((item, idx) => (
+            <CartItem key={`${item.product.slug}-${idx}`} item={item} />
           ))}
-        </div>
+        </CartItems>
         {cartItems.length > 0 && (
           <CartSummary>
             <CartTotal>Total</CartTotal>
