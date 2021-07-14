@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 import AudiophileTheme from "./theme/AudiophileTheme";
 import CartProvider from "./contexts/CartContext";
@@ -19,6 +20,7 @@ function App() {
 
   const addToCart = (item: ICartItem) => {
     setCartItems((prevItems) => [...prevItems, item]);
+    toast.success("New item added to cart 🎉 !!!");
   };
 
   const removeFromCart = (id?: string) => {
@@ -67,6 +69,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
+        <ToastContainer position="bottom-right" />
       </CartProvider>
     </ThemeProvider>
   );

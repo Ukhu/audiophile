@@ -63,6 +63,11 @@ const CheckoutSummaryBtn = styled(StyledButton)`
   width: 100%;
 `;
 
+const CartItems = styled.div`
+  max-height: 20rem;
+  overflow: scroll;
+`;
+
 const SHIPPING_FEE = 50;
 
 const CheckoutSummary = () => {
@@ -77,11 +82,11 @@ const CheckoutSummary = () => {
       <CheckoutSummaryHeader>
         <CheckoutSummaryTitle>Summary</CheckoutSummaryTitle>
       </CheckoutSummaryHeader>
-      <div>
-        {cartItems.map((item) => (
-          <CartItem key={item.product.slug} summary item={item} />
+      <CartItems>
+        {cartItems.map((item, idx) => (
+          <CartItem key={`${item.product.slug}-${idx}`} summary item={item} />
         ))}
-      </div>
+      </CartItems>
       <CartSummary>
         <CartTotal>Total</CartTotal>
         <CartPriceTotal>${total.toLocaleString()}</CartPriceTotal>
